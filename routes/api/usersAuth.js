@@ -53,6 +53,34 @@ router.post("/register", (req, res) => {
     .catch();
 });
 
+// @route       GET api/users/login
+// @description Returns user token(JWT) / Login user
+// @access      Private
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // use email to find user; {email:email}
+  User.findOne({ email }).then((user) => {
+    // email check:
+    if (!user) {
+      // user doesn't exist
+      return res.status(404).json({ email: "User not found" }); // return 404 status
+    }
+
+    // password check: compare(text, hashed_password)
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      if (isMatch) {
+        // user passes authentication / password match
+        res.json({ msg: "Success" }); // generate token
+      } else {
+        // password doesn't match
+        return res.status(400).json({ password: "Incorrect password" });
+      }
+    });
+  });
+});
+
 module.exports = router;
 
 /**
