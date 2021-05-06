@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs"); // for password encryption
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport"); // for protected routes
+const validateRegisterationInput = require("../../validation/register"); //for validating user input
 
 const User = require("../../models/User"); // load user model
 
@@ -19,6 +20,13 @@ router.get("/test", (req, res) => res.json({ msg: "users works" }));
 // @description User Registration
 // @access      Public
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateRegisterationInput(request.body);
+
+  // check if errors
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   // check if email exist
   User.findOne({ email: req.body.email })
     .then((user) => {
