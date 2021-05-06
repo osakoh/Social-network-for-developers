@@ -4,6 +4,9 @@ const express = require("express");
 const router = express.Router(); // express router
 const gravatar = require("gravatar"); // gravatar
 const bcrypt = require("bcryptjs"); // for password encryption
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const passport = require("passport"); // for protected routes
 
 const User = require("../../models/User"); // load user model
 
@@ -55,7 +58,7 @@ router.post("/register", (req, res) => {
 
 // @route       GET api/users/login
 // @description Returns user token(JWT) / Login user
-// @access      Private
+// @access      Public
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -70,9 +73,20 @@ router.post("/login", (req, res) => {
 
     // password check: compare(text, hashed_password)
     bcrypt.compare(password, user.password).then((isMatch) => {
+      // user passes authentication / password match
       if (isMatch) {
-        // user passes authentication / password match
-        res.json({ msg: "Success" }); // generate token
+        // payload:what should be included in the token
+        const payload = { id: user.id, name: user.name, avatar: user.avatar };
+        // Sign asynchronously: generates the token
+        jwt.sign(
+          // default algorithm: HS256
+          payload,
+          keys.secretOrKey, // secretOrPrivateKey is a string, buffer, or object containing either the secret for HMAC algorithms
+          { expiresIn: 3600 }, // expiresIn: time span in seconds
+          (err, token) => {
+            res.json({ success: true, token: "Bearer " + token });
+          }
+        ); // expiresIn: user is logged out after 1hr
       } else {
         // password doesn't match
         return res.status(400).json({ password: "Incorrect password" });
@@ -80,6 +94,22 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+// @route       GET api/users/current
+// @description Returns the current user
+// @access      Private
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+      avatar: req.user.avatar,
+    });
+  }
+);
 
 module.exports = router;
 
