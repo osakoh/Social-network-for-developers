@@ -94,4 +94,47 @@ router.delete(
   }
 );
 
+// @route       POST api/posts/like/:id
+// @description Like a post based on the post id
+// @access      Private
+router.post(
+  "/like/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then((profile) => {
+        Post.findById(req.params.id)
+          .then((post) => {
+            // check if the user has already liked a post: user's id is in a post array
+            if (
+              post.likes.filter((like) => like.user.toString() === req.user.id)
+                .length > 0
+            ) {
+              return res
+                .status(400)
+                .json({ alreadyliked: "User already like this post" });
+            } else {
+              // user hasn't liked a post: add user id to likes array
+              post.likes.unshift({ user: req.user.id });
+              // save to db
+              post
+                .save()
+                .then((post) => res.json(post))
+                .catch((err) =>
+                  res
+                    .status(501)
+                    .json({ notsaved: "Error encountered while saving" })
+                );
+            }
+          })
+          .catch((err) =>
+            res.status(404).json({ postnotfound: "This post was not found" })
+          );
+      })
+      .catch((err) =>
+        res.status(404).json({ postnotfound: "This post doesn't exist" })
+      );
+  }
+);
+
 module.exports = router;
