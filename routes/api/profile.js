@@ -40,6 +40,25 @@ router.get(
   }
 );
 
+// @route         GET api/profile/handle/:handle
+// @description   Get profile by hande
+// @access        Public
+router.get("/handle/:handle", (req, res) => {
+  const errors = {}; // initialise errors object
+
+  Profile.findOne({ handle: req.params.handle }) // retrieve handle from 'params'
+    .populate("user", ["name", "avatar"]) // get fields from user into the response
+    .then((profile) => {
+      if (!profile) {
+        // no profile with the handle exists
+        errors.noprofile = "There is no profile for this user";
+        res.status(404).json(errors);
+      } // profile with the handle exists
+      res.json(profile);
+    })
+    .catch((err) => res.status(404).json(err));
+});
+
 // @route         POST api/profile
 // @description   Create / Update user profile
 // @access        Private
