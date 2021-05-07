@@ -5,6 +5,7 @@ const router = express.Router(); // express router
 const mongoose = require("mongoose");
 const passport = require("passport");
 const Post = require("../../models/Post"); // Post model
+const Profile = require("../../models/Profile"); // Post model
 const validatePostInput = require("../../validation/Post");
 
 // @route       GET api/posts
@@ -50,11 +51,46 @@ router.post(
       text: req.body.text,
       name: req.body.name,
       avatar: req.body.avatar,
-      user: req.body.id,
+      user: req.user.id,
     });
 
     // save post
     newPost.save().then((post) => res.json(post));
+  }
+);
+
+// @route       DELETE api/posts/:id
+// @description Delete post by id
+// @access      Private
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then((profile) => {
+        Post.findById(req.params.id)
+          .then((post) => {
+            // check if user owns the post
+            if (post.user.toString() !== req.user.id) {
+              return res
+                .status(401)
+                .json({ notauthorized: "Unauthorized user" });
+            }
+            // delete post: user owns the post
+            post
+              .remove()
+              .then(() => res.json({ success: true }))
+              .catch((err) =>
+                res.status(404).json({ postnotfound: "Post not found" })
+              );
+          })
+          .catch((err) =>
+            res.status(404).json({ postnotfound: "This post was not found" })
+          );
+      })
+      .catch((err) =>
+        res.status(404).json({ postnotfound: "This post doesn't exist" })
+      );
   }
 );
 
