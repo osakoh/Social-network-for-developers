@@ -15,7 +15,18 @@ router.get("/", (req, res) => {
     .sort({ date: -1 }) // sort post according to date based on newest/most recent post
     .then((posts) => res.json(posts))
     .catch((err) => {
-      res.status(404);
+      res.status(404).json({ nopostsfound: "No posts found" });
+    });
+});
+
+// @route       GET api/posts/:id
+// @description Get post by id
+// @access      Public
+router.get("/:id", (req, res) => {
+  Post.findById(req.params.id) // retrieve single post by id
+    .then((post) => res.json(post))
+    .catch((err) => {
+      res.status(404).json({ nopostfound: "No post found" });
     });
 });
 
