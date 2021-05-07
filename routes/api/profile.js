@@ -7,14 +7,10 @@ const passport = require("passport");
 // load validation
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require("../../validation/experience");
+const validateEducationInput = require("../../validation/education");
 
 const Profile = require("../../models/Profile"); // load profile model
 const User = require("../../models/User"); // load user model
-
-// @route       GET api/profile/test
-// @description Tests profile route
-// @access      Public
-router.get("/test", (req, res) => res.json({ msg: "profile works" }));
 
 // @route         GET api/profile
 // @description   Get profile of current user
@@ -185,7 +181,7 @@ router.post(
 );
 
 // @route         POST api/profile/experience
-// @description   Create / Update experience to profile
+// @description   Add experience to profile
 // @access        Private
 router.post(
   "/experience",
@@ -213,6 +209,42 @@ router.post(
     Profile.findOne({ user: req.user.id }).then((profile) => {
       // add to experience array
       profile.experience.unshift(newExp);
+
+      // save profile
+      profile.save().then((profile) => res.json(profile));
+    });
+  }
+);
+
+// @route         POST api/profile/education
+// @description   Add education to profile
+// @access        Private
+router.post(
+  "/education",
+  passport.authenticate("jwt", { session: false }), // protected route
+  (req, res) => {
+    const { errors, isValid } = validateEducationInput(req.body);
+
+    // check validation
+    if (!isValid) {
+      // return errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    // get fields from request.body
+    const newEdu = {};
+    newEdu.school = req.body.school;
+    newEdu.degree = req.body.degree;
+    newEdu.fieldofstudy = req.body.fieldofstudy;
+    newEdu.from = req.body.from;
+    newEdu.to = req.body.to;
+    newEdu.current = req.body.current;
+    newEdu.description = req.body.description;
+
+    // check for user
+    Profile.findOne({ user: req.user.id }).then((profile) => {
+      // add to experience array
+      profile.education.unshift(newEdu);
 
       // save profile
       profile.save().then((profile) => res.json(profile));
