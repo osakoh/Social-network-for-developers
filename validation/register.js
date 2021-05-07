@@ -10,6 +10,7 @@ module.exports = function validateRegisterationInput(data) {
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
 
   // if name is not greater than 2 characters or name is less than 30 characters
+  // isLength: takes in 2 parameters, input field & object{min, max}
   if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
     errors.name = "Name must be between 2 and 30 characters";
   }
@@ -35,6 +36,7 @@ module.exports = function validateRegisterationInput(data) {
   }
 
   // check if password input is between 6 and 20
+  // isLength: takes in 2 parameters, input field & object{min, max}
   if (!Validator.isLength(data.password, { min: 6, max: 20 })) {
     errors.password = "Password must be at least 6 characters";
   }
