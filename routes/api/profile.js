@@ -247,7 +247,10 @@ router.post(
       profile.education.unshift(newEdu);
 
       // save profile
-      profile.save().then((profile) => res.json(profile));
+      profile
+        .save()
+        .then((profile) => res.json(profile))
+        .catch((err) => res.json(err));
     });
   }
 );

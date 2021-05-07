@@ -26,7 +26,7 @@ module.exports = function validateEducationInput(data) {
   }
 
   //  check if From input is empty
-  if (Validator.isEmpty(data.From)) {
+  if (Validator.isEmpty(data.from)) {
     errors.From = "From is a required field";
   }
 
