@@ -8,8 +8,20 @@ const Post = require("../../models/Post"); // Post model
 const validatePostInput = require("../../validation/Post");
 
 // @route       GET api/posts
-// @description Create/Add post
-// @access      Private
+// @description Get all posts
+// @access      Public
+router.get("/", (req, res) => {
+  Post.find() // retrieve all post from the Post model
+    .sort({ date: -1 }) // sort post according to date based on newest/most recent post
+    .then((posts) => res.json(posts))
+    .catch((err) => {
+      res.status(404);
+    });
+});
+
+// @route         POST api/posts
+// @description   Create/Add post
+// @access        Private
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
