@@ -4,6 +4,8 @@ const express = require("express");
 const router = express.Router(); // express router
 const mongoose = require("mongoose");
 const passport = require("passport");
+// load validation
+const validateProfileInput = require("../../validation/profile");
 
 const Profile = require("../../models/Profile"); // load profile model
 const User = require("../../models/User"); // load user model
@@ -23,10 +25,11 @@ router.get(
     const errors = {}; // initialise errors object
 
     Profile.findOne({ user: req.user.id })
+      .populate("user", ["name", "avatar"]) // get fields from user into the response
       .then((profile) => {
         if (!profile) {
           // no profile
-          errors.noprofile = "User has no profile"; // add profile error to error object
+          errors.noprofile = "Thers is no profile associated with this user"; // add profile error to error object
           return res.status(404).json(errors);
         } else {
           // profile exist
@@ -44,7 +47,13 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }), // protected route
   (req, res) => {
-    const errors = {}; // initialise errors object
+    const { errors, isValid } = validateProfileInput(req.body);
+
+    // check validation
+    if (!isValid) {
+      // return errors with 400 status
+      return res.status(400).json(errors);
+    }
 
     // get fields from request.body
     const profileFields = {};
@@ -73,7 +82,7 @@ router.post(
 
     // check if user entered skills: split into array since skills are added as comma separate values
     if (typeof req.body.skills !== "undefined") {
-      profileFields.skills = req.body.skills.Split(","); // split on comma
+      profileFields.skills = req.body.skills.split(","); // split on comma
     }
 
     // social links
@@ -91,7 +100,7 @@ router.post(
         Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
-          { new: true }
+          { new: true } // new: true is equivalent to returnOriginal: false
         ).then((profile) => res.json(profile));
       } else {
         // create profile
