@@ -22,12 +22,12 @@ class Login extends Component {
   // onSubmit: submits the form
   onSubmit(e) {
     e.preventDefault(); // prevent default form behaviour
-    const newLogin = {
+    const user = {
       email: this.state.email,
       password: this.state.password,
     };
 
-    console.log(newLogin);
+    console.log(user);
   }
 
   render() {
