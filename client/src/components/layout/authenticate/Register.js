@@ -10,31 +10,28 @@ class Register extends Component {
       password2: "",
       errors: {},
     };
-    // binding this keyword
+    // binding the this keyword
     // this.onChange = this.onChange.bind(this);
     // this.onSubmit = this.onChange.bind(this);
   }
 
-  // onChange function for input fields
-  //   onChange(e) {
-  //     this.setState({ [e.target.name]: e.target.value });
-  //   }
+  // onChange: capture inputs from input fields
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // onSubmit event for the form
+  // onSubmit: submits the form
   onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevent default form behaviour
 
-    const newUser = {
+    const user = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
     };
 
-    console.log(newUser);
+    console.log(user);
   };
 
   render() {
@@ -44,9 +41,7 @@ class Register extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your DevConnector account
-              </p>
+              <p className="lead text-center">Ready to Join DevNetwork!</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group mb-2">
                   {/* name input field */}
@@ -100,8 +95,8 @@ class Register extends Component {
                   />
                   {/* password2 input field */}
                 </div>
+                {/* submit input: type submit */}
                 <div className="d-grid">
-                  {/* submit input: type submit */}
                   <input
                     type="submit"
                     className="btn btn-dark btn-block  mt-2 "
