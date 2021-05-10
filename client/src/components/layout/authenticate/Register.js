@@ -10,7 +10,32 @@ class Register extends Component {
       password2: "",
       errors: {},
     };
+    // binding this keyword
+    // this.onChange = this.onChange.bind(this);
+    // this.onSubmit = this.onChange.bind(this);
   }
+
+  // onChange function for input fields
+  //   onChange(e) {
+  //     this.setState({ [e.target.name]: e.target.value });
+  //   }
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  // onSubmit event for the form
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2,
+    };
+
+    console.log(newUser);
+  };
 
   render() {
     return (
@@ -22,50 +47,67 @@ class Register extends Component {
               <p className="lead text-center">
                 Create your DevConnector account
               </p>
-              <form action="create-profile.html">
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group mb-2">
+                  {/* name input field */}
                   <input
                     type="text"
                     className="form-control form-control-lg"
                     placeholder="Name"
                     name="name"
-                    required
+                    value={this.state.name}
+                    onChange={this.onChange}
                   />
+                  {/* name input field */}
                 </div>
                 <div className="form-group mb-2">
+                  {/* email input field */}
                   <input
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email Address"
                     name="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
                   />
+                  {/* email input field */}
                   <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
                     a Gravatar email
                   </small>
                 </div>
                 <div className="form-group mb-2">
+                  {/* password input field */}
                   <input
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
                     name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
                   />
+                  {/* password input field */}
                 </div>
                 <div className="form-group mb-2">
+                  {/* password2 input field */}
                   <input
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Confirm Password"
                     name="password2"
+                    value={this.state.password2}
+                    onChange={this.onChange}
                   />
+                  {/* password2 input field */}
                 </div>
                 <div className="d-grid">
+                  {/* submit input: type submit */}
                   <input
                     type="submit"
-                    className="btn btn-dark btn-block btn-lg mt-2 "
+                    className="btn btn-dark btn-block  mt-2 "
                     value="Sign up"
                   />
+                  {/* submit input: type submit */}
                 </div>
               </form>
             </div>
