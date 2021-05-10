@@ -37,7 +37,7 @@ class Login extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">Sign into DevNetwork</p>
+              <p className="lead text-center">Sign into DevNet</p>
               <form onSubmit={this.onSubmit}>
                 {/* email input */}
                 <div className="form-group mb-2">

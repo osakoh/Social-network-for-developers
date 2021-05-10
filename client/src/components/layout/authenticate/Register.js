@@ -54,7 +54,7 @@ class Register extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Ready to Join DevNetwork!</p>
+              <p className="lead text-center">Ready to Join DevNet!</p>
               <form onSubmit={this.onSubmit} noValidate>
                 <div className="form-group mb-2">
                   {/* name input field */}
