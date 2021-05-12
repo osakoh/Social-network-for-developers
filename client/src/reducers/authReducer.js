@@ -1,4 +1,5 @@
-// import { GET_ERRORS } from "../actions/types";
+import { SET_CURRENT_USER } from "../actions/types";
+import isEmpty from "../validation/isEmpty";
 
 const initialState = {
   isAuthenticated: false,
@@ -12,7 +13,14 @@ const initialState = {
  * The reducer then sends it down to any component that requires it.
  */
 const authReducer = (state = initialState, action) => {
+  // evaluates the type dispatched from authActions.js
   switch (action.type) {
+    case SET_CURRENT_USER:
+      return {
+        ...state, // ... spread operator, this copies the state and updates it
+        isAuthenticated: !isEmpty(action.payload), // contains the token which includes the user data
+        user: action.payload,
+      };
     default:
       return state;
   }
