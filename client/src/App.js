@@ -12,6 +12,7 @@ import Login from "./components/layout/authenticate/Login";
 class App extends Component {
   render() {
     return (
+      // provides the store(holds the application state)
       <Provider store={store}>
         <Router>
           <div className="App">
@@ -24,7 +25,7 @@ class App extends Component {
             <Footer />
           </div>
         </Router>
-      </Provider>
+      </Provider> // provides the store(holds the application state)
     );
   }
 }
