@@ -1,4 +1,4 @@
-import { TEST_DISPATCH } from "../actions/types";
+// import { GET_ERRORS } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
@@ -13,11 +13,6 @@ const initialState = {
  */
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TEST_DISPATCH:
-      return {
-        ...state, // ... spread operator, this copyies the state and updates it
-        user: action.payload,
-      };
     default:
       return state;
   }
