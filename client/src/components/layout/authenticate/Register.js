@@ -39,7 +39,7 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // onSubmit: submits the form
+  // onSubmit: triggers when the form is submitted
   onSubmit = (e) => {
     e.preventDefault(); // prevent default form behaviour
 
@@ -50,7 +50,7 @@ class Register extends Component {
       password2: this.state.password2,
     };
 
-    this.props.registerUser(newUser);
+    this.props.registerUser(newUser, this.props.history);
   };
 
   onPressed = (e) => {
