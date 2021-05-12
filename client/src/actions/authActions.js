@@ -1,6 +1,6 @@
-import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
-import jwt_decode from "jwt-decode";
+import axios from "axios"; // for HTTP request
+import setAuthToken from "../utils/setAuthToken"; // set token to Authorisation header
+import jwt_decode from "jwt-decode"; // to decode the token
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 /**
