@@ -168,6 +168,7 @@ class Register extends Component {
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 // mapStateToProps/mapState: first argument passed into connect()(). Used to extract data
