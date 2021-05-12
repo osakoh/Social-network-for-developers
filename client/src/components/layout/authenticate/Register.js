@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import classnames from "classnames";
 import { connect } from "react-redux"; // to connect redux with this component
 import { registerUser } from "../../../actions/authActions";
@@ -21,6 +20,19 @@ class Register extends Component {
     // this.onSubmit = this.onChange.bind(this);
   }
 
+  // componentWillReceiveProps is deprecated on new versions and replaced with getDerivedStateFromProps
+  // updates the state whenever the errors props changes
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.errors) {
+      return {
+        errors: nextProps.errors,
+      };
+    }
+
+    // Return null if the state hasn't changed
+    return null;
+  }
+
   // onChange: capture inputs from input fields
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -37,12 +49,6 @@ class Register extends Component {
       password2: this.state.password2,
     };
 
-    // register user
-    // axios
-    //   .post("/api/users/register", newUser)
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => this.setState({ errors: err.response.data }));
-
     this.props.registerUser(newUser);
   };
 
@@ -51,13 +57,11 @@ class Register extends Component {
   };
 
   render() {
-    const { errors } = this.state; // destructuring errors from state
-
-    const { user } = this.props.auth;
+    // destructuring errors from state
+    const { errors } = this.state;
 
     return (
       <div className="register">
-        {user ? user.name : "No logged in"}
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -160,13 +164,17 @@ class Register extends Component {
   }
 }
 
+// proptype
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
+// mapStateToProps/mapState: first argument passed into connect()(). Used to extract data
+// a component requires from the store
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { registerUser })(Register);
