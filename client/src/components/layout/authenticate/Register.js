@@ -53,6 +53,7 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history);
   };
 
+  // checks if the submit button has been pressed and sets the state of pressed to true
   onPressed = (e) => {
     this.setState({ pressed: true });
   };
@@ -179,4 +180,5 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
+// registerUser: function from authActions JS
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));
