@@ -21,6 +21,13 @@ class Register extends Component {
     // this.onSubmit = this.onChange.bind(this);
   }
 
+  // componentDidMount is invoked immediately after a component is mounted
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   // componentWillReceiveProps is deprecated on new versions and replaced with getDerivedStateFromProps
   // updates the state whenever the errors props changes
   static getDerivedStateFromProps(nextProps) {
