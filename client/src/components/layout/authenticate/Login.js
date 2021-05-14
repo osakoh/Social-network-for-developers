@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux"; // to connect redux with this component
 import { loginUser } from "../../../actions/authActions";
-import classnames from "classnames";
+import TextField from "../../common/TextField";
 
 class Login extends Component {
   constructor() {
@@ -76,43 +76,31 @@ class Login extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">Sign into DevNet</p>
-              <form onSubmit={this.onSubmit}>
+
+              {/* form start */}
+              <form onSubmit={this.onSubmit} noValidate>
                 {/* email input */}
-                <div className="form-group mb-2">
-                  <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email,
-                      "is-valid": !errors.email && this.state.pressed,
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                </div>
+                <TextField
+                  name="email"
+                  placeholder="Email Address"
+                  value={this.state.email}
+                  error={errors.email}
+                  type="email"
+                  onChange={this.onChange}
+                  isPressed={this.state.pressed}
+                />
                 {/* email input */}
 
                 {/* password input */}
-                <div className="form-group mb-2">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password,
-                      "is-valid": !errors.password && this.state.pressed,
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
+                <TextField
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  error={errors.password}
+                  type="password"
+                  onChange={this.onChange}
+                  isPressed={this.state.pressed}
+                />
                 {/* password input */}
 
                 {/* submit input: type submit */}
@@ -126,6 +114,7 @@ class Login extends Component {
                 </div>
                 {/* submit input: type submit */}
               </form>
+              {/* form end */}
             </div>
           </div>
         </div>
