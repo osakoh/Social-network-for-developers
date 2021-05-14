@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../src/logo.png";
@@ -11,16 +12,23 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     // onLogoutClick function
-    const onLogoutClick = (e) => {
-      e.preventDefault();
-      this.props.logoutUser();
-    };
+    // const onLogoutClick = (e) => {
+    //   e.preventDefault();
+    //   this.props.logoutUser();
+    // };
 
     // shows if user is logged in/authenticated
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a href="" className="nav-link" onClick={(e) => onLogoutClick(e)}>
+          <a
+            href="#"
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              logoutUser();
+            }}
+          >
             <img
               className="rounded-circle"
               src={user.avatar}
