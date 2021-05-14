@@ -263,20 +263,24 @@ router.delete(
   passport.authenticate("jwt", { session: false }), // protected route
   (req, res) => {
     // check for user
-    Profile.findOne({ user: req.user.id }).then((profile) => {
-      // find experience id
-      const removeIndex = profile.experience
-        .map((item) => item.id)
-        .indexOf(req.params.exp_id);
+    Profile.findOne({ user: req.user.id })
+      .then((profile) => {
+        // find experience id
+        const removeIndex = profile.experience
+          .map((item) => item.id)
+          .indexOf(req.params.exp_id);
 
-      // splice out of array
-      profile.experience.splice(removeIndex, 1);
-      // save
-      profile
-        .save()
-        .then((profile) => res.json(profile))
-        .catch((err) => res.status(404).json(err));
-    });
+        // splice out of array
+        profile.experience.splice(removeIndex, 1);
+        // save
+        profile
+          .save()
+          .then((profile) => res.json(profile))
+          .catch((err) => res.status(404).json(err));
+      })
+      .catch((err) =>
+        res.status(404).json({ experience: "No experience found." })
+      );
   }
 );
 
@@ -288,20 +292,24 @@ router.delete(
   passport.authenticate("jwt", { session: false }), // protected route
   (req, res) => {
     // check for user
-    Profile.findOne({ user: req.user.id }).then((profile) => {
-      // find experience id
-      const removeIndex = profile.education
-        .map((item) => item.id)
-        .indexOf(req.params.edu_id);
+    Profile.findOne({ user: req.user.id })
+      .then((profile) => {
+        // find experience id
+        const removeIndex = profile.education
+          .map((item) => item.id)
+          .indexOf(req.params.edu_id);
 
-      // splice out of array
-      profile.education.splice(removeIndex, 1);
-      // save
-      profile
-        .save()
-        .then((profile) => res.json(profile))
-        .catch((err) => res.status(404).json(err));
-    });
+        // splice out of array
+        profile.education.splice(removeIndex, 1);
+        // save
+        profile
+          .save()
+          .then((profile) => res.json(profile))
+          .catch((err) => res.status(404).json(err));
+      })
+      .catch((err) =>
+        res.status(404).json({ experience: "No education found." })
+      );
   }
 );
 
