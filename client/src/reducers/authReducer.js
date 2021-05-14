@@ -18,8 +18,8 @@ const authReducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state, // ... spread operator, this copies the state and updates it
-        isAuthenticated: !isEmpty(action.payload), // contains the token which includes the user data
-        user: action.payload,
+        isAuthenticated: !isEmpty(action.payload), // true if action.payload is not Empty; otherwise false
+        user: action.payload, // contains the token which includes the user data
       };
     default:
       return state;

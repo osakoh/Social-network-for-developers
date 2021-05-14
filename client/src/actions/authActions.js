@@ -28,11 +28,11 @@ export const loginUser = (userData) => (dispatch) => {
     .then((res) => {
       // extract token form response
       const { token } = res.data;
-      // save to local storage; localstorage only stores strings, however, token is a string
+      // persist to local storage; localstorage only stores strings, however, token is a string
       localStorage.setItem("jwtToken", token);
-      // set token to Authorisation header
+      // set token to Authorisation header so the user can access protected routes
       setAuthToken(token);
-      // decode token to get user data: token contains the payload which includes, the user.id, user.name & user.avatar
+      // decode token to get user data: token contains the payload(user.id, user.name & user.avatar) and expiration date
       const decodedToken = jwt_decode(token);
       // set current user
       dispatch(setCurrentUser(decodedToken));
@@ -43,4 +43,15 @@ export const loginUser = (userData) => (dispatch) => {
 // set logged in user
 export const setCurrentUser = (decoded) => {
   return { type: SET_CURRENT_USER, payload: decoded };
+};
+
+export const logoutUser = () => (dispatch) => {
+  // remove token from local storage
+  localStorage.removeItem("jwtToken");
+
+  // remove token from Authorization header
+  setAuthToken(false); // this deletes the auth header. check setAuthToken script for details
+
+  // set current user to an empty object, thereby setting isAuthenticated to false because actios.payload is empty
+  dispatch(setCurrentUser({}));
 };
