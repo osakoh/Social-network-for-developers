@@ -15,6 +15,8 @@ class Navbar extends Component {
     // const onLogoutClick = (e) => {
     //   e.preventDefault();
     //   this.props.logoutUser();
+    // window.location.href = "/login"; // redirect to login page
+
     // };
 
     // shows if user is logged in/authenticated
@@ -27,6 +29,7 @@ class Navbar extends Component {
             onClick={(e) => {
               e.preventDefault();
               this.props.logoutUser();
+              window.location.href = "/login"; // redirect to login page
             }}
           >
             <img
