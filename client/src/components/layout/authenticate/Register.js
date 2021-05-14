@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import classnames from "classnames";
 import { connect } from "react-redux"; // to connect redux with this component
 import { registerUser } from "../../../actions/authActions";
+import TextField from "../../common/TextField";
 
 class Register extends Component {
   constructor() {
@@ -76,83 +77,58 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Ready to Join DevNet!</p>
+
+              {/* form start */}
               <form onSubmit={this.onSubmit} noValidate>
-                <div className="form-group mb-2">
-                  {/* name input field */}
-                  <input
-                    type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.name,
-                      "is-valid": !errors.name && this.state.pressed,
-                    })}
-                    placeholder="Name"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                  />
-                  {errors.name && (
-                    <div className="invalid-feedback">{errors.name}</div>
-                  )}
-                  {/* name input field */}
-                </div>
-                <div className="form-group mb-2">
-                  {/* email input field */}
-                  <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email,
-                      "is-valid": !errors.email && this.state.pressed,
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                  {/* email input field */}
-                  <small className="form-text text-muted">
-                    This site uses Gravatar so if you want a profile image, use
-                    a Gravatar email
-                  </small>
-                </div>
-                <div className="form-group mb-2">
-                  {/* password input field */}
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password,
-                      "is-valid": !errors.password && this.state.pressed,
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                  {/* password input field */}
-                </div>
-                <div className="form-group mb-2">
-                  {/* password2 input field */}
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password2,
-                      "is-valid": !errors.password2 && this.state.pressed,
-                    })}
-                    placeholder="Confirm Password"
-                    name="password2"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                  />
-                  {errors.password2 && (
-                    <div className="invalid-feedback">{errors.password2}</div>
-                  )}
-                  {/* password2 input field */}
-                </div>
+                {/* name input field */}
+                <TextField
+                  name="name"
+                  placeholder="Name"
+                  value={this.state.name}
+                  error={errors.name}
+                  type="text"
+                  onChange={this.onChange}
+                  isPressed={this.state.pressed}
+                />
+                {/* name input field */}
+
+                {/* email input field */}
+                <TextField
+                  name="email"
+                  placeholder="Email"
+                  value={this.state.email}
+                  error={errors.email}
+                  type="email"
+                  onChange={this.onChange}
+                  isPressed={this.state.pressed}
+                  info="Use an Email account linked with Gravatar to display a profile image."
+                />
+                {/* email input field */}
+
+                {/* password input field */}
+                <TextField
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  error={errors.password}
+                  type="password"
+                  onChange={this.onChange}
+                  isPressed={this.state.pressed}
+                />
+                {/* password input field */}
+
+                {/* password2 input field */}
+                <TextField
+                  name="password2"
+                  placeholder="Confirm Password"
+                  value={this.state.password2}
+                  error={errors.password2}
+                  type="password"
+                  onChange={this.onChange}
+                  isPressed={this.state.pressed}
+                />
+                {/* password2 input field */}
+
                 {/* submit input: type submit */}
                 <div className="d-grid">
                   <input
@@ -161,10 +137,10 @@ class Register extends Component {
                     className="btn btn-dark btn-block  mt-2 "
                     value="Sign up"
                   />
-
-                  {/* submit input: type submit */}
                 </div>
+                {/* submit input: type submit */}
               </form>
+              {/* form end */}
             </div>
           </div>
         </div>
