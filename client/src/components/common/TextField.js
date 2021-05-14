@@ -12,18 +12,19 @@ const TextField = ({
   type,
   onChange,
   disabled,
-  otherStateValue,
+  isPressed,
 }) => (
   <div className="form-group mb-2">
     <input
       type={type}
       className={classnames("form-control form-control-lg", {
         "is-invalid": error,
-        "is-valid": !error && otherStateValue,
+        "is-valid": !error && isPressed,
       })}
       placeholder={placeholder}
       name={name}
       value={value}
+      label={label}
       onChange={onChange}
       disabled={disabled}
     />
@@ -41,7 +42,7 @@ TextField.propTypes = {
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.string,
-  otherStateValue: PropTypes.func,
+  isPressed: PropTypes.bool,
 };
 
 TextField.defaultProps = {
