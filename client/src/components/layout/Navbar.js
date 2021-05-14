@@ -19,7 +19,7 @@ class Navbar extends Component {
 
     // shows if user is logged in/authenticated
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ms-auto">
         <li className="nav-item">
           <a
             href="#"
@@ -44,7 +44,7 @@ class Navbar extends Component {
 
     // shows if user is logged out/not authenticated
     const guestLinks = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ms-auto">
         <li className="nav-item">
           <Link className="nav-link" to="/register">
             Register
@@ -59,7 +59,7 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark mb-4 navBg">
+      <nav className="navbar navbar-expand-md navbar-dark mb-4 navBg">
         <div className="container">
           <Link className="navbar-brand" to="/">
             <img src={logo} alt={"logo"} className="navPhoto" />
@@ -68,14 +68,17 @@ class Navbar extends Component {
           <button
             className="navbar-toggler"
             type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
+          <div className="collapse navbar-collapse" id="navbarText">
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link" to="/profiles">
                   Developers
@@ -83,7 +86,9 @@ class Navbar extends Component {
               </li>
             </ul>
 
+            {/* show different links if user is authenticated / logged in */}
             {isAuthenticated ? authLinks : guestLinks}
+            {/* show different links if user is authenticated / logged in */}
           </div>
         </div>
       </nav>
