@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import classnames from "classnames";
 import { connect } from "react-redux"; // to connect redux with this component
 import { registerUser } from "../../../actions/authActions";
 import TextField from "../../common/TextField";
