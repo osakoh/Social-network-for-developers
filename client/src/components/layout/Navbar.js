@@ -26,7 +26,7 @@ class Navbar extends Component {
             className="nav-link"
             onClick={(e) => {
               e.preventDefault();
-              logoutUser();
+              this.props.logoutUser();
             }}
           >
             <img
