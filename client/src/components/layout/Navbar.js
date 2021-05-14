@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../src/logo.png";
 import { connect } from "react-redux"; // to connect redux with this component
 import { logoutUser } from "../../actions/authActions";
+import { clearCurrentProfile } from "../../actions/profileActions";
 import PropTypes from "prop-types";
 
 class Navbar extends Component {
@@ -12,26 +13,18 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     // onLogoutClick function
-    // const onLogoutClick = (e) => {
-    //   e.preventDefault();
-    //   this.props.logoutUser();
-    // window.location.href = "/login"; // redirect to login page
-
-    // };
+    const onLogoutClick = (e) => {
+      e.preventDefault();
+      this.props.clearCurrentProfile();
+      this.props.logoutUser();
+      window.location.href = "/login"; // redirect to login page
+    };
 
     // shows if user is logged in/authenticated
     const authLinks = (
       <ul className="navbar-nav ms-auto">
         <li className="nav-item">
-          <a
-            href="#"
-            className="nav-link"
-            onClick={(e) => {
-              e.preventDefault();
-              this.props.logoutUser();
-              window.location.href = "/login"; // redirect to login page
-            }}
-          >
+          <a href="#" className="nav-link" onClick={(e) => onLogoutClick(e)}>
             <img
               className="rounded-circle"
               src={user.avatar}
@@ -101,10 +94,13 @@ class Navbar extends Component {
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  clearCurrentProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
+  Navbar
+);
