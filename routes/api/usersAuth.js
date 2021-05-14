@@ -62,7 +62,7 @@ router.post("/register", (req, res) => {
     .catch();
 });
 
-// @route       GET api/users/login
+// @route       POST api/users/login
 // @description Returns user token(JWT) / Login user
 // @access      Public
 router.post("/login", (req, res) => {
