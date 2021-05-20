@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux"; // provides the store(holds the application state)
 import jwt_decode from "jwt-decode"; // to decode the token
 import setAuthToken from "./utils/setAuthToken"; // set token to Authorisation header
@@ -15,6 +15,7 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/layout/authenticate/Register";
 import Login from "./components/layout/authenticate/Login";
 import Dashboard from "./components/dashboard/Dashboard";
+import CreateProfile from "./components/create-profile/CreateProfile";
 
 // check for token in local storage
 if (localStorage.jwtToken) {
@@ -50,7 +51,22 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
+              <Switch>
+                {/* Switch allows redirection when logged out */}
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              {/* Switch allows redirection when logged out */}
+
+              <Switch>
+                {/* Switch allows redirection when logged out */}
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+              </Switch>
+              {/* Switch allows redirection when logged out */}
             </div>
             <Footer />
           </div>
