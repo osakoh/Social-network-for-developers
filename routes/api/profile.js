@@ -26,7 +26,7 @@ router.get(
       .then((profile) => {
         if (!profile) {
           // no profile
-          errors.noprofile = "Thers is no profile associated with this user"; // add profile error to error object
+          errors.noprofile = "There's is no profile associated with this user"; // add profile error to error object
           return res.status(404).json(errors);
         } else {
           // profile exist
