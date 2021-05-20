@@ -15,8 +15,8 @@ class Navbar extends Component {
     // onLogoutClick function
     const onLogoutClick = (e) => {
       e.preventDefault();
-      this.props.clearCurrentProfile();
-      this.props.logoutUser();
+      this.props.clearCurrentProfile(); // clear current user profile
+      this.props.logoutUser(); // logout current user
       window.location.href = "/login"; // redirect to login page
     };
 
