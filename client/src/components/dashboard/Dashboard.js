@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 import Spinner from "../layout/Spinner";
-import profileReducer from "../../reducers/profileReducer";
 
 class Dashboard extends Component {
   // make request immediately component loads in the DOM
