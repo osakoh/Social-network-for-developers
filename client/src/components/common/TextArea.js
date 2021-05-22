@@ -11,7 +11,7 @@ const TextArea = ({
   onChange,
   isPressed,
 }) => (
-  <div className="form-group mb-2">
+  <div className="form-group mb-3">
     <textarea
       className={classnames("form-control form-control-lg", {
         "is-invalid": error,

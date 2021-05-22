@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; // to connect redux with this component
 import PropTypes from "prop-types";
 import TextField from "../common/TextField";
 import TextArea from "../common/TextArea";
 import InputGroup from "../common/InputGroup";
 import SelectInput from "../common/SelectInput";
+import { createProfile } from "../../actions/profileActions";
+import { withRouter } from "react-router-dom"; // allows CreateProfile component has access to this.props.history so it can redirect the user with this.props.history.push
 import {
   FaTwitter,
   FaLinkedinIn,
@@ -42,11 +44,41 @@ class CreateProfile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // componentWillReceiveProps is deprecated on new versions and replaced with getDerivedStateFromProps
+  // updates the state whenever the props (errors) changes
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.errors) {
+      return {
+        errors: nextProps.errors,
+      };
+    }
+
+    // Return null if the state hasn't changed
+    return null;
+  }
+
   // onSubmit: submits the form
   onSubmit = (e) => {
     e.preventDefault(); // prevent default form behaviour
 
-    console.log("submitted");
+    const profileData = {
+      handle: this.state.handle,
+      status: this.state.status,
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      skills: this.state.skills,
+      githubusername: this.state.githubusername,
+      bio: this.state.bio,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      youtube: this.state.youtube,
+      instagram: this.state.instagram,
+    };
+
+    // call createprofile api
+    this.props.createProfile(profileData, this.props.history);
   };
 
   // checks if the submit button has been pressed and sets the state of pressed to true
@@ -263,8 +295,9 @@ class CreateProfile extends Component {
 
                 {/* social links: hidden by default */}
                 <div className="mt-4 mb-3 text-center">
-                  <div class="d-grid">
+                  <div className="d-grid">
                     <button
+                      type="button"
                       className="btn btn-secondary btn-sm"
                       onClick={() => {
                         this.setState((prevState) => ({
@@ -302,10 +335,13 @@ class CreateProfile extends Component {
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  createProfile: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
   errors: state.errors,
 });
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps, { createProfile })(
+  withRouter(CreateProfile)
+);

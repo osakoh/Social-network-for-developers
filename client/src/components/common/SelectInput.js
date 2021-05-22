@@ -18,7 +18,7 @@ const SelectInput = ({
   ));
 
   return (
-    <div className="form-group mb-2">
+    <div className="form-group mb-3">
       <select
         className={classnames("form-control form-control-lg", {
           "is-invalid": error,

@@ -14,7 +14,7 @@ const TextField = ({
   disabled,
   isPressed,
 }) => (
-  <div className="form-group mb-2">
+  <div className="form-group mb-3">
     <input
       type={type}
       className={classnames("form-control form-control-lg", {

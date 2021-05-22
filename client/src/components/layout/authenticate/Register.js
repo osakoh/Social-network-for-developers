@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom"; // allows Register component has access to this.props.history so it can redirect the user with this.props.history.push
 import { connect } from "react-redux"; // to connect redux with this component
 import { registerUser } from "../../../actions/authActions";
 import TextField from "../../common/TextField";
