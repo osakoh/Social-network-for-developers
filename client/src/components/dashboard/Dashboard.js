@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile } from "../../actions/profileActions";
 import Spinner from "../layout/Spinner";
+import ProfileButtons from "./ProfileButtons";
 
 class Dashboard extends Component {
   // make request immediately component loads in the DOM
@@ -24,9 +25,23 @@ class Dashboard extends Component {
       // check if logged in user has a profile
       if (Object.keys(profile).length > 0) {
         // user has profile
-        dashboardContent = <h4>Display profile</h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              {/* converts the first character to uppercase*/}
+              Welcome&nbsp;
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/profile/${profile.handle}`}
+              >
+                {user.name.replace(/^\w/, (c) => c.toUpperCase())}
+              </Link>
+            </p>
+            <ProfileButtons />
+          </div>
+        );
       } else {
-        // user hasn't created a profile
+        // user has no profile
         dashboardContent = (
           <div>
             <p className="lead text-muted">
