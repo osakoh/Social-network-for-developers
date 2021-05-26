@@ -2,15 +2,26 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getCurrentProfile } from "../../actions/profileActions";
+import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import { logoutUser } from "../../actions/authActions";
 import Spinner from "../layout/Spinner";
 import ProfileButtons from "./ProfileButtons";
+import { MdDeleteSweep } from "react-icons/md";
 
 class Dashboard extends Component {
   // make request immediately component loads in the DOM
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+
+  // onDeleteClick funtion
+  onDeleleClick = (e) => {
+    e.preventDefault();
+
+    this.props.deleteAccount();
+    this.props.logoutUser();
+    console.log(34);
+  };
 
   render() {
     // destructuring
@@ -38,6 +49,12 @@ class Dashboard extends Component {
               </Link>
             </p>
             <ProfileButtons />
+            {/* TODO: exp and edu */}
+            <div style={{ marginBottom: "60px" }} />
+            <button onClick={this.onDeleleClick} className="btn-danger">
+              <MdDeleteSweep style={{ fontSize: "1.50em" }} />
+              &nbsp;Delete account
+            </button>
           </div>
         );
       } else {
@@ -80,6 +97,8 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
 // get props from redux
@@ -88,4 +107,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  deleteAccount,
+  logoutUser,
+})(Dashboard);
