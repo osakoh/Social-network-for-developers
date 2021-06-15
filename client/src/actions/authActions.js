@@ -1,7 +1,7 @@
-import axios from 'axios'; // for HTTP request
-import setAuthToken from '../utils/setAuthToken'; // set token to Authorisation header
-import jwt_decode from 'jwt-decode'; // to decode the token
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import axios from "axios"; // for HTTP request
+import setAuthToken from "../utils/setAuthToken"; // set token to Authorisation header
+import jwt_decode from "jwt-decode"; // to decode the token
+import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 /**
  * register user
@@ -12,9 +12,9 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
  */
 export const registerUser = (userData, history) => (dispatch) => {
   axios
-    .post('/api/users/register', userData)
+    .post("/api/users/register", userData)
     // redirect to login page
-    .then((res) => history.push('/login'))
+    .then((res) => history.push("/login"))
     .catch((err) => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
@@ -24,12 +24,12 @@ export const registerUser = (userData, history) => (dispatch) => {
 // login - Get user Token
 export const loginUser = (userData) => (dispatch) => {
   axios
-    .post('/api/users/login', userData)
+    .post("/api/users/login", userData)
     .then((res) => {
       // extract token form response
       const { token } = res.data;
       // persist to local storage; localstorage only stores strings, however, token is a string
-      localStorage.setItem('jwtToken', token);
+      localStorage.setItem("jwtToken", token);
       // set token to Authorisation header so the user can access protected routes
       setAuthToken(token);
       // decode token to get user data: token contains the payload(user.id, user.name & user.avatar) and expiration date
@@ -47,7 +47,7 @@ export const setCurrentUser = (decoded) => {
 
 export const logoutUser = () => (dispatch) => {
   // remove token from local storage
-  localStorage.removeItem('jwtToken');
+  localStorage.removeItem("jwtToken");
 
   // remove token from Authorization header
   setAuthToken(false); // this deletes the auth header. check setAuthToken script for details

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
-import { logoutUser } from "../../actions/authActions";
 import Spinner from "../layout/Spinner";
 import ProfileButtons from "./ProfileButtons";
 import { MdDeleteSweep } from "react-icons/md";
@@ -19,8 +18,6 @@ class Dashboard extends Component {
     e.preventDefault();
 
     this.props.deleteAccount();
-    this.props.logoutUser();
-    console.log(34);
   };
 
   render() {
@@ -38,20 +35,23 @@ class Dashboard extends Component {
         // user has profile
         dashboardContent = (
           <div>
-            <p className="lead text-muted">
+            <p className='lead text-muted'>
               {/* converts the first character to uppercase*/}
               Welcome&nbsp;
+              {/* links to users profile */}
               <Link
                 style={{ textDecoration: "none" }}
                 to={`/profile/${profile.handle}`}
               >
                 {user.name.replace(/^\w/, (c) => c.toUpperCase())}
               </Link>
+              {/* links to users profile */}
             </p>
+            {/* show buttons to edit profile, add experience & education */}
             <ProfileButtons />
-            {/* TODO: exp and edu */}
-            <div style={{ marginBottom: "60px" }} />
-            <button onClick={this.onDeleleClick} className="btn-danger">
+            {/* show buttons to edit profile, add experience & education */}
+            <div style={{ marginBottom: "40px" }} />
+            <button onClick={this.onDeleleClick} className='btn-danger'>
               <MdDeleteSweep style={{ fontSize: "1.50em" }} />
               &nbsp;Delete account
             </button>
@@ -61,14 +61,14 @@ class Dashboard extends Component {
         // user has no profile
         dashboardContent = (
           <div>
-            <p className="lead text-muted">
+            <p className='lead text-muted'>
               {/* converts the first character to uppercase*/}
               Welcome&nbsp;{user.name.replace(/^\w/, (c) => c.toUpperCase())}
             </p>
             <p>You don't have a profile. Please setup a profile.</p>
             <Link
-              to="/create-profile"
-              className="btn btn-lg btn-secondary btn-block"
+              to='/create-profile'
+              className='btn btn-lg btn-secondary btn-block'
             >
               Create Profile
             </Link>
@@ -78,11 +78,11 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
+      <div className='dashboard'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-12'>
+              <h1 className='display-4'>Dashboard</h1>
               {dashboardContent}
             </div>
           </div>
@@ -98,7 +98,6 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   deleteAccount: PropTypes.func.isRequired,
-  logoutUser: PropTypes.func.isRequired,
 };
 
 // get props from redux
@@ -110,5 +109,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getCurrentProfile,
   deleteAccount,
-  logoutUser,
 })(Dashboard);
