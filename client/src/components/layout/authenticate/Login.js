@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux"; // to connect redux with this component
 import { loginUser } from "../../../actions/authActions";
@@ -70,22 +71,22 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">Sign into DevNet</p>
+      <div className='login'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-8 m-auto'>
+              <h1 className='display-4 text-center'>Log In</h1>
+              <p className='lead text-center'>Sign into DevNet</p>
 
               {/* form start */}
               <form onSubmit={this.onSubmit} noValidate>
                 {/* email input */}
                 <TextField
-                  name="email"
-                  placeholder="Email Address"
+                  name='email'
+                  placeholder='Email Address'
                   value={this.state.email}
                   error={errors.email}
-                  type="email"
+                  type='email'
                   onChange={this.onChange}
                   isPressed={this.state.pressed}
                 />
@@ -93,24 +94,32 @@ class Login extends Component {
 
                 {/* password input */}
                 <TextField
-                  name="password"
-                  placeholder="Password"
+                  name='password'
+                  placeholder='Password'
                   value={this.state.password}
                   error={errors.password}
-                  type="password"
+                  type='password'
                   onChange={this.onChange}
                   isPressed={this.state.pressed}
                 />
                 {/* password input */}
 
                 {/* submit input: type submit */}
-                <div className="d-grid">
+                <div className='d-grid'>
                   <input
                     onClick={this.onPressed}
-                    type="submit"
-                    className="btn btn-dark btn-block  mt-2"
-                    value="Login"
+                    type='submit'
+                    className='btn btn-dark btn-block mt-2'
+                    value='Login'
                   />
+                </div>
+                {/* submit input: type submit */}
+
+                {/* submit input: type submit */}
+                <div className='d-grid mt-2'>
+                  <Link to='/register' className='btn btn-info btn-block'>
+                    Register
+                  </Link>
                 </div>
                 {/* submit input: type submit */}
               </form>
