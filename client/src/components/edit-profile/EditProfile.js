@@ -5,7 +5,7 @@ import TextField from "../common/TextField";
 import TextArea from "../common/TextArea";
 import InputGroup from "../common/InputGroup";
 import SelectInput from "../common/SelectInput";
-import { createProfile } from "../../actions/profileActions";
+import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 import { withRouter } from "react-router-dom"; // allows CreateProfile component has access to this.props.history so it can redirect the user with this.props.history.push
 import {
   FaTwitter,
@@ -15,7 +15,7 @@ import {
   FaFacebookF,
 } from "react-icons/fa";
 
-class CreateProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
     // class component state
@@ -43,6 +43,8 @@ class CreateProfile extends Component {
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  //
 
   // componentWillReceiveProps is deprecated on new versions and replaced with getDerivedStateFromProps
   // updates the state whenever the props (errors) changes
@@ -332,7 +334,7 @@ class CreateProfile extends Component {
 }
 
 // proptypes
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   createProfile: PropTypes.func,
@@ -343,5 +345,5 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 export default connect(mapStateToProps, { createProfile })(
-  withRouter(CreateProfile)
+  withRouter(EditProfile)
 );

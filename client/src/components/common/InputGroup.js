@@ -13,8 +13,8 @@ const InputGroup = ({
   isPressed,
 }) => {
   return (
-    <div className="input-group mb-3">
-      <span className="input-group-text">{icon}</span>
+    <div className='input-group mb-3'>
+      <span className='input-group-text'>{icon}</span>
       <input
         type={type}
         className={classnames("form-control form-control-lg", {
@@ -26,7 +26,7 @@ const InputGroup = ({
         value={value}
         onChange={onChange}
       />
-      {error && <div className="invalid-feedback">{error}</div>}
+      {error && <div className='invalid-feedback'>{error}</div>}
     </div>
   );
 };
