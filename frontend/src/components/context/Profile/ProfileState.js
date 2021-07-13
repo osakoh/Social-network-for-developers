@@ -112,6 +112,30 @@ const ProfileState = (props) => {
     }
   };
 
+  const deleteExperience = async (expId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.delete(
+        `/api/profile/experience/${expId}`,
+        config
+      ); // returns a promise
+      if (res.status === 200) {
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: GET_ERRORS, payload: error.response.data });
+    }
+  };
+
   // return context provider
   return (
     <profileContext.Provider
@@ -130,6 +154,7 @@ const ProfileState = (props) => {
         deleteProfileAccount,
         addExperience,
         addEducation,
+        deleteExperience,
       }}
     >
       {props.children}
