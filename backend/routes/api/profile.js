@@ -279,12 +279,10 @@ router.delete(
         // save
         profile
           .save()
-          .then((profile) => res.json(profile))
+          .then((profile) => res.json(profile)) // returns back the user's profile
           .catch((err) => res.status(404).json(err));
       })
-      .catch((err) =>
-        res.status(404).json({ experience: "No experience found." })
-      );
+      .catch((err) => res.status(404).json(err));
   }
 );
 

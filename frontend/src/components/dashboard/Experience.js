@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import Moment from "react-moment";
+import profileContext from "../context/Profile/profileContext";
 
 const Experience = ({ experience }) => {
+  // init profile context
+  const profileCtx = useContext(profileContext);
+
+  // handles deleting of experience
+  const onDeleteClickHander = (expId) => {
+    profileCtx.deleteExperience(expId);
+  };
+
   const tableBody = experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
       <td>{exp.title}</td>
-      <td>{/* <Moment format='DD/MM/YYYY'>{exp.from}</Moment> */}</td>
       <td>
-        {exp._id}
-        <button className='btn btn-sm btn-danger'>Delete</button>
+        <Moment format='DD/MMM/YYYY'>{exp.from}</Moment>
+      </td>
+      <td>
+        {exp.to === null ? (
+          "Current"
+        ) : (
+          <Moment format='DD/MMM/YYYY'>{exp.to}</Moment>
+        )}
+      </td>
+      <td>
+        <button
+          className='btn btn-sm btn-danger'
+          onClick={() => onDeleteClickHander(exp._id)}
+        >
+          Delete
+        </button>
       </td>
     </tr>
   ));
@@ -24,7 +46,8 @@ const Experience = ({ experience }) => {
           <tr>
             <th scope='col'>Company</th>
             <th scope='col'>Title</th>
-            <th scope='col'>Years</th>
+            <th scope='col'>From</th>
+            <th scope='col'>To</th>
             <th />
           </tr>
         </thead>

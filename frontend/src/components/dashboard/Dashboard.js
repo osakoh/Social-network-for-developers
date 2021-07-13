@@ -51,7 +51,9 @@ const Dashboard = () => {
           <ProfileButtons />
           {/* show buttons to edit profile, add experience & education */}
           {/* Experience component */}
-          <Experience experience={profile.experience} />
+          {profile.experience.length !== 0 && (
+            <Experience experience={profile.experience} />
+          )}
           {/* Experience component */}
           {/* delete profile and account button */}
           <button
