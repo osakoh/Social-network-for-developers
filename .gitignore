@@ -1,4 +1,44 @@
+/backend/node_modules
+/backend/package-lock.json
+/backend/config/keys.js
+/backend/config/default.json
+/backend/test.js
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
 /node_modules
-package-lock.json
-config/keys.js
-test.js
+/frontend/node_modules/
+
+/.pnp
+/frontend/.pnp
+.pnp.js
+/frontend/.pnp.js
+
+# testing
+/coverage
+/frontend/coverage
+
+# production
+/build
+/frontend/build
+
+# misc
+.DS_Store
+/frontend/.DS_Store
+.env.local
+/frontend/.env.local
+.env.development.local
+/frontend/.env.development.local
+.env.test.local
+/frontend/.env.test.local
+.env.production.local
+/frontend/.env.production.local
+
+npm-debug.log*
+/frontend/npm-debug.log*
+yarn-debug.log*
+/frontend/yarn-debug.log*
+yarn-error.log*
+/frontend/yarn-error.log*
