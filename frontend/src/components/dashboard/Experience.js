@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Moment from "react-moment";
 import profileContext from "../context/Profile/profileContext";
+import { RiDeleteBack2Line } from "react-icons/ri";
 
 const Experience = ({ experience }) => {
   // init profile context
@@ -30,7 +31,7 @@ const Experience = ({ experience }) => {
           className='btn btn-sm btn-danger'
           onClick={() => onDeleteClickHander(exp._id)}
         >
-          Delete
+          <RiDeleteBack2Line style={{ fontSize: "1.30em" }} />
         </button>
       </td>
     </tr>

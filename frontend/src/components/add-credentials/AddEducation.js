@@ -74,10 +74,10 @@ const AddEducation = () => {
           <h4 className='card-header display-5 text-center rounded-3'>
             Add Education
           </h4>
-          <p className='lead text-center'>
+          {/* <p className='lead text-center'>
             Add any developer/programming positions that you have had in the
             past
-          </p>
+          </p> */}
           <small className='d-block pb-3'>
             <span className='text-danger'>*</span> = required field
           </small>

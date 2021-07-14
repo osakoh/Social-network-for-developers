@@ -6,6 +6,7 @@ import profileContext from "../context/Profile/profileContext";
 import authContext from "../context/Auth/authContext";
 import { MdDeleteSweep } from "react-icons/md";
 import Experience from "./Experience";
+import Education from "./Education";
 
 const Dashboard = () => {
   const profileCtx = useContext(profileContext); // get state & functions from profile context
@@ -55,6 +56,11 @@ const Dashboard = () => {
             <Experience experience={profile.experience} />
           )}
           {/* Experience component */}
+          {/* Education component */}
+          {profile.education.length !== 0 && (
+            <Education education={profile.education} />
+          )}
+          {/* Education component */}
           {/* delete profile and account button */}
           <button
             type='button'

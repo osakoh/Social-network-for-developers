@@ -1,4 +1,4 @@
-import { useReducer, useContext } from "react";
+import { useReducer } from "react";
 import axios from "axios";
 import profileReducer from "./profileReducer";
 import profileContext from "./profileContext";
@@ -8,11 +8,8 @@ import {
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
 } from "../types";
-import authContext from "../../context/Auth/authContext";
 
 const ProfileState = (props) => {
-  // init context
-  // const ctx = useContext(authContext);
   // init profile initial states
   const initialState = {
     profile: null,
@@ -94,7 +91,7 @@ const ProfileState = (props) => {
     }
   };
 
-  // const add experience
+  // handles the adding of an education to the profile model
   const addEducation = async (newEdu, history) => {
     const config = {
       headers: {
@@ -112,6 +109,7 @@ const ProfileState = (props) => {
     }
   };
 
+  // handles deleting of an experience from the profile model
   const deleteExperience = async (expId) => {
     const config = {
       headers: {
@@ -124,6 +122,28 @@ const ProfileState = (props) => {
         `/api/profile/experience/${expId}`,
         config
       ); // returns a promise
+      if (res.status === 200) {
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: GET_ERRORS, payload: error.response.data });
+    }
+  };
+
+  // handles deleting of an education from the profile model
+  const deleteEducation = async (eduId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.delete(`/api/profile/education/${eduId}`, config); // returns a promise
       if (res.status === 200) {
         dispatch({
           type: GET_PROFILE,
@@ -155,6 +175,7 @@ const ProfileState = (props) => {
         addExperience,
         addEducation,
         deleteExperience,
+        deleteEducation,
       }}
     >
       {props.children}
