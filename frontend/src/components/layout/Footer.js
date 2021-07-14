@@ -2,10 +2,17 @@ import React from "react";
 
 const Footer = () => {
   return (
-    // <footer className='mt-auto p-4 text-white text-center bg-dark '>
     <footer
-      style={{ position: "fixed", bottom: "0", left: "0", width: "100%" }}
-      className='text-white text-center bg-dark p-4'
+      style={{
+        position: "fixed",
+        bottom: "0",
+        left: "0",
+        width: "100%",
+        padding: "10px",
+        height: "50px",
+        marginTop: "-50px",
+      }}
+      className='text-white text-center bg-dark'
     >
       <div className='container'>
         Copyright &copy; {new Date().getFullYear()} DevNet
