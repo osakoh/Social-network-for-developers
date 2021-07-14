@@ -4,6 +4,7 @@ import profileReducer from "./profileReducer";
 import profileContext from "./profileContext";
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
@@ -23,13 +24,39 @@ const ProfileState = (props) => {
 
   // get current profile: api/profile
   const getCurrentProfile = async () => {
+    dispatch(setProfileLoading());
     try {
       const res = await axios.get("/api/profile");
 
       dispatch({ type: GET_PROFILE, payload: res.data });
     } catch (error) {
-      // log errors in node console
-      dispatch({ type: GET_PROFILE, payload: {} });
+      dispatch({ type: GET_PROFILE, payload: GET_PROFILE });
+    }
+  };
+
+  // Get all profiles
+  const getProfiles = async () => {
+    dispatch(setProfileLoading());
+
+    try {
+      const res = await axios.get("/api/profile/all");
+
+      dispatch({ type: GET_PROFILES, payload: res.data });
+    } catch (error) {
+      dispatch({ type: GET_PROFILES, payload: null });
+    }
+  };
+
+  // Get profile by handle
+  const getProfileByHandle = async (handle) => {
+    dispatch(setProfileLoading());
+
+    try {
+      const res = await axios.get(`/api/profile/handle/${handle}`);
+
+      dispatch({ type: GET_PROFILE, payload: res.data });
+    } catch (error) {
+      dispatch({ type: GET_PROFILE, payload: null });
     }
   };
 
@@ -168,6 +195,8 @@ const ProfileState = (props) => {
 
         // declare functions here
         getCurrentProfile,
+        getProfiles,
+        getProfileByHandle,
         createProfile,
         setProfileLoading,
         clearCurrentProfile,

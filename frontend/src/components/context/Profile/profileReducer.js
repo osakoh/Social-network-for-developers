@@ -1,5 +1,6 @@
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
@@ -18,6 +19,13 @@ const profileReducer = (state, action) => {
         ...state, // ... spread operator, this copies the state and updates it
         profile: action.payload, // fill profile object with profile data
         loading: false, // set loading back to false
+      };
+
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: action.payload,
+        loading: false,
       };
 
     case CLEAR_CURRENT_PROFILE:
