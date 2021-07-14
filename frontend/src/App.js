@@ -32,8 +32,10 @@ const App = () => {
   return (
     <Router>
       <Header />
+
       <Route exact path='/' component={Landing} />
-      <main>
+
+      <main style={{ marginBottom: "50px", padding: "10px" }}>
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
 
@@ -75,9 +77,60 @@ const App = () => {
         </Switch>
         {/* AddEducation; Switch allows redirection when logged out */}
       </main>
+
       <Footer />
     </Router>
   );
 };
 
 export default App;
+
+/**
+ * Min-Width
+// X-Small devices (portrait phones, less than 576px)
+@media screen and (min-width: 576px) { ... }
+
+// Small devices (landscape phones, 576px and up)
+@media screen and (min-width: 576px) { ... }
+
+// Medium devices (tablets, 768px and up)
+@media screen and (min-width: 768px) { ... }
+
+// Large devices (desktops, 992px and up)
+@media screen and (min-width: 992px) { ... }
+
+// X-Large devices (large desktops, 1200px and up)
+@media screen and (min-width: 1200px) { ... }
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media screen and (min-width: 1400px) { ... }
+
+
+Max-Width
+// X-Small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { ... }
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) { ... }
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { ... }
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) { ... }
+
+// X-Large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) { ... }
+
+// XX-Large devices (larger desktops)
+// No media query since the xxl breakpoint has no upper bound on its width
+
+
+Between breakpoints
+
+Similarly, media queries may span multiple breakpoint widths:
+// Example
+// Apply styles starting from medium devices and up to extra large devices
+@media (min-width: 768px) and (max-width: 1199.98px) { ... }
+
+ */

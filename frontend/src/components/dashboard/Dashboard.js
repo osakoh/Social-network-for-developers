@@ -36,17 +36,19 @@ const Dashboard = () => {
       // user has profile
       dashboardContent = (
         <div className='display-5 mb-3 pt-3'>
-          {/* converts the first character to uppercase*/}
-          Welcome,&nbsp;
-          {/* links to users profile */}
-          <i>
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/profile/${profile.handle}`}
-            >
-              {authCtx.user.name.replace(/^\w/, (c) => c.toUpperCase())}
-            </Link>
-          </i>
+          <span className='container'>
+            {/* converts the first character to uppercase*/}
+            Welcome,&nbsp;
+            {/* links to users profile */}
+            <i>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/profile/${profile.handle}`}
+              >
+                {authCtx.user.name.replace(/^\w/, (c) => c.toUpperCase())}
+              </Link>
+            </i>
+          </span>
           {/* links to users profile */}
           {/* show buttons to edit profile, add experience & education */}
           <ProfileButtons />
@@ -64,7 +66,7 @@ const Dashboard = () => {
           {/* delete profile and account button */}
           <button
             type='button'
-            className='btn btn-secondary btn-sm mx-2 mb-2 text-danger fw-bold'
+            className='btn btn-secondary btn-sm mt-3 mb-2 text-danger fw-bold'
             onClick={deleteProfileAccount}
           >
             <MdDeleteSweep

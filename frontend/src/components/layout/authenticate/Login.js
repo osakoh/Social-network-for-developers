@@ -57,8 +57,7 @@ const Login = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Log In</h1>
-            <p className='lead text-center'>Sign into CodeNet</p>
+            <h2 className='display-5 text-center m-5'>Log into DevNet</h2>
 
             {/* form start */}
             <form onSubmit={onSubmitHandler} noValidate>

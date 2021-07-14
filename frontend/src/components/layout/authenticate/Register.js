@@ -69,10 +69,9 @@ const Register = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Sign Up</h1>
-            <p className='lead text-center'>
+            <h2 className='display-5 text-center m-5'>
               Connect with other Developers at DevNet!
-            </p>
+            </h2>
 
             {/* form start */}
             <form onSubmit={onSubmitHandler} noValidate>
