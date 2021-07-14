@@ -69,8 +69,8 @@ const Register = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-md-8 m-auto'>
-            <h2 className='display-5 text-center m-5'>
-              Connect with other Developers at DevNet!
+            <h2 className='text-center m-5'>
+              Meet other Developers at DevNet!
             </h2>
 
             {/* form start */}

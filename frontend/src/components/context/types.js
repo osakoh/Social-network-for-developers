@@ -12,9 +12,19 @@ export const PROFILE_NOT_FOUND = "PROFILE_NOT_FOUND";
 export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
 export const GET_PROFILES = "GET_PROFILES";
 
+// github
+export const SEARCH_USERS = "SEARCH_USERS";
+export const GET_USER = "GET_USER";
+export const CLEAR_USERS = "CLEAR_USERS";
+export const GET_REPOS = "GET_REPOS";
+
 // post
 export const POST_LOADING = "POST_LOADING";
 export const GET_POSTS = "GET_POSTS";
 export const GET_POST = "GET_POST";
 export const ADD_POST = "ADD_POST";
 export const DELETE_POST = "DELETE_POST";
+
+// alert
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";

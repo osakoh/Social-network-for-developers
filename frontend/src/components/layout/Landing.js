@@ -12,10 +12,10 @@ const Div = styled.div`
   height: 100vh;
   /* margin-top: -24px; */
   margin-bottom: -50px;
-  /* background-color: red; */
 
   & img {
     width: 100%;
+    height: 100%;
   }
 
   .landing-inner {

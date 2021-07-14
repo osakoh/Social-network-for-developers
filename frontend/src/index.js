@@ -7,14 +7,16 @@ import { ThemeProvider } from "styled-components"; // style component
 import * as theme from "./components/Theme/theme";
 import AuthState from "./components/context/Auth/AuthState";
 import ProfileState from "./components/context/Profile/ProfileState";
-// import ErrorState from "./components/context/Error/ErrorState";
+import GithubState from "./components/context/github/GithubState";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <AuthState>
         <ProfileState>
-          <App />
+          <GithubState>
+            <App />
+          </GithubState>
         </ProfileState>
       </AuthState>
     </ThemeProvider>
