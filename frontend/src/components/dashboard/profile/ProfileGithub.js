@@ -1,5 +1,4 @@
 import React, { useRef, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Spinner from "../../layout/Spinner";
 import githubContext from "../../context/github/githubContext";
@@ -48,9 +47,17 @@ const ProfileGithub = ({ username }) => {
         <div className='row'>
           <div className='col-md-6'>
             <h5>
-              <Link to={repo.html_url} className='text-info' target='_blank'>
+              {/* <Link to={repo.html_url} className='text-info' target='_blank'>
                 {repo.name}
-              </Link>
+              </Link> */}
+
+              <a
+                href={repo.html_url}
+                className='text-info my-1'
+                target='__blank'
+              >
+                {repo.name}
+              </a>
             </h5>
             <p>{repo.description}</p>
           </div>

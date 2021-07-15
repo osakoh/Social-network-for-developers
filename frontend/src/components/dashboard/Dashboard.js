@@ -35,20 +35,18 @@ const Dashboard = () => {
     if (Object.keys(profile).length > 0) {
       // user has profile
       dashboardContent = (
-        <div className='display-5 mb-3 pt-3'>
-          <span className='container'>
-            {/* converts the first character to uppercase*/}
-            Welcome,&nbsp;
-            {/* links to users profile */}
-            <i>
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/profile/${profile.handle}`}
-              >
-                {authCtx.user.name.replace(/^\w/, (c) => c.toUpperCase())}
-              </Link>
-            </i>
-          </span>
+        <div className='display-5 mb-2 pt-3'>
+          {/* converts the first character to uppercase*/}
+          Welcome,&nbsp;
+          {/* links to users profile */}
+          <i>
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/profile/${profile.handle}`}
+            >
+              {authCtx.user.name.replace(/^\w/, (c) => c.toUpperCase())}
+            </Link>
+          </i>
           {/* links to users profile */}
           {/* show buttons to edit profile, add experience & education */}
           <ProfileButtons />

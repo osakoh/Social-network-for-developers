@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoSchoolSharp } from "react-icons/io5";
 
 const ProfileButtons = () => (
-  <div>
+  <div className='mt-3 text-center'>
     <Link to='/edit-profile' className='btn btn-secondary btn-sm mx-2 mb-2'>
       <CgProfile className='text-info' style={{ fontSize: "1.40em" }} />
       &nbsp;Edit Profile

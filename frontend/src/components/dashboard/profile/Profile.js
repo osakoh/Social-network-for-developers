@@ -23,21 +23,27 @@ const Profile = (props) => {
   // call getProfileByHandle on mount
   useEffect(() => {
     // if (profile === null && loading) {
+
     getProfileByHandle(props.match.params.handle);
-    // history.push("/not-found");
-    //   }
+    // console.log("Not found: From Profile Component");
+    //   history.push("/not-found");
+    // }
     // eslint-disable-next-line
   }, []);
 
+  // useParams
+  // const { handle } = useParams();
+  // console.log(handle);
+
   // redirect to Not found page if no profile and profile loading
-  useEffect(() => {
-    // if (profile === null && loading) {
-    //   console.log("Not found: From Profile Component");
-    //   console.log(githubCtx.loading, profile.username);
-    //   // history.push("/not-found");
-    // }
-    // eslint-disable-next-line
-  }, [profile, loading]);
+  // useEffect(() => {
+  //   if (profile === null && loading) {
+  //     console.log("Not found: From Profile Component");
+  //     // console.log(githubCtx.loading, profile.username);
+  //     history.push("/not-found");
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
 
   let profileContent;
 
