@@ -25,25 +25,13 @@ const ProfileState = (props) => {
   // get current profile: api/profile
   const getCurrentProfile = async () => {
     dispatch(setProfileLoading());
+
     try {
       const res = await axios.get("/api/profile");
 
       dispatch({ type: GET_PROFILE, payload: res.data });
     } catch (error) {
-      dispatch({ type: GET_PROFILE, payload: GET_PROFILE });
-    }
-  };
-
-  // Get all profiles
-  const getProfiles = async () => {
-    dispatch(setProfileLoading());
-
-    try {
-      const res = await axios.get("/api/profile/all");
-
-      dispatch({ type: GET_PROFILES, payload: res.data });
-    } catch (error) {
-      dispatch({ type: GET_PROFILES, payload: null });
+      dispatch({ type: GET_PROFILE, payload: {} });
     }
   };
 
@@ -57,6 +45,19 @@ const ProfileState = (props) => {
       dispatch({ type: GET_PROFILE, payload: res.data });
     } catch (error) {
       dispatch({ type: GET_PROFILE, payload: null });
+    }
+  };
+
+  // Get all profiles
+  const getProfiles = async () => {
+    dispatch(setProfileLoading());
+
+    try {
+      const res = await axios.get("/api/profile/all");
+
+      dispatch({ type: GET_PROFILES, payload: res.data });
+    } catch (error) {
+      dispatch({ type: GET_PROFILES, payload: null });
     }
   };
 

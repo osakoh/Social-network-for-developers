@@ -6,22 +6,38 @@ import Spinner from "../../layout/Spinner";
 import ProfileHeader from "../profile/ProfileHeader";
 import ProfileAbout from "../profile/ProfileAbout";
 import ProfileCreds from "../profile/ProfileCreds";
-import ProfileGithub from "../profile/ProfileGithub";
+import ProfileGithub from "./ProfileGithub";
+import githubContext from "../../context/github/githubContext";
 
 const Profile = (props) => {
   // init history
   const history = useHistory();
   // get state & functions from profile context
   const profileCtx = useContext(profileContext);
+  // initialise GithubContext
+  const githubCtx = useContext(githubContext);
 
   // destructure from profile ctx
   const { profile, loading, getProfileByHandle } = profileCtx;
 
   // call getProfileByHandle on mount
   useEffect(() => {
+    // if (profile === null && loading) {
     getProfileByHandle(props.match.params.handle);
+    // history.push("/not-found");
+    //   }
     // eslint-disable-next-line
   }, []);
+
+  // redirect to Not found page if no profile and profile loading
+  useEffect(() => {
+    // if (profile === null && loading) {
+    //   console.log("Not found: From Profile Component");
+    //   console.log(githubCtx.loading, profile.username);
+    //   // history.push("/not-found");
+    // }
+    // eslint-disable-next-line
+  }, [profile, loading]);
 
   let profileContent;
 
@@ -29,21 +45,14 @@ const Profile = (props) => {
     profileContent = <Spinner />;
   } else {
     profileContent = (
-      <div>
-        <div className='row'>
-          <div className='col-md-6'>
-            <Link to='/profiles' className='btn btn-light mb-3 float-left'>
-              Back To Profiles
-            </Link>
-          </div>
-          <div className='col-md-6' />
-        </div>
+      <div className='pb-5 mb-5'>
         <ProfileHeader profile={profile} />
         <ProfileAbout profile={profile} />
         <ProfileCreds
           education={profile.education}
           experience={profile.experience}
         />
+
         {profile.githubusername ? (
           <ProfileGithub username={profile.githubusername} />
         ) : null}
@@ -61,6 +70,8 @@ const Profile = (props) => {
               Back to Profiles <IoIosPeople style={{ fontSize: "1.40rem" }} />
             </Link>
             {/* back to profiles button */}
+
+            {profileContent}
           </div>
         </div>
       </div>

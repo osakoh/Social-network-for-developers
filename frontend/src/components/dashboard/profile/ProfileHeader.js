@@ -1,99 +1,120 @@
-import React, { Component } from "react";
+import React from "react";
 import isEmpty from "../../validation/isEmpty";
+import { IoLogoTwitter, IoLogoYoutube } from "react-icons/io";
+import { SiFacebook } from "react-icons/si";
+import { ImLinkedin, ImInstagram, ImLocation } from "react-icons/im";
 
-class ProfileHeader extends Component {
-  render() {
-    const { profile } = this.props;
-
-    return (
-      <div className='row'>
-        <div className='col-md-12'>
-          <div className='card card-body bg-info text-white mb-3'>
-            <div className='row'>
-              <div className='col-4 col-md-3 m-auto'>
-                <img
-                  className='rounded-circle'
-                  src={profile.user.avatar}
-                  alt=''
-                />
-              </div>
+const ProfileHeader = ({ profile }) => {
+  return (
+    <div className='row'>
+      <div className='col-md-12'>
+        <div className='shadow p-3 mb-5 card rounded bg-info text-white mb-3'>
+          <div className='row text-center'>
+            <div className='col-4 text-center col-md-3 m-auto'>
+              <img
+                className='img-fluid rounded-3 mx-auto d-block'
+                src={profile.user.avatar}
+                alt={profile.user.name}
+              />
             </div>
-            <div className='text-center'>
-              <h1 className='display-4 text-center'>{profile.user.name}</h1>
-              <p className='lead text-center'>
-                {profile.status}{" "}
-                {isEmpty(profile.company) ? null : (
-                  <span>at {profile.company}</span>
-                )}
-              </p>
-              {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
-              <p>
-                {isEmpty(profile.website) ? null : (
-                  <a
-                    className='text-white p-2'
-                    href={profile.website}
-                    target='_blank'
-                  >
-                    <i className='fas fa-globe fa-2x' />
-                  </a>
-                )}
+          </div>
+          <div className='text-center'>
+            <h3 className='display-5 text-center'>{profile.user.name}</h3>
 
-                {isEmpty(profile.social && profile.social.twitter) ? null : (
-                  <a
-                    className='text-white p-2'
-                    href={profile.social.twitter}
-                    target='_blank'
-                  >
-                    <i className='fab fa-twitter fa-2x' />
-                  </a>
-                )}
+            {/* company name */}
+            <p className='lead text-center'>
+              {profile.status}
+              {isEmpty(profile.company) ? null : (
+                <span>at {profile.company}</span>
+              )}
+            </p>
+            {/* company name */}
 
-                {isEmpty(profile.social && profile.social.facebook) ? null : (
-                  <a
-                    className='text-white p-2'
-                    href={profile.social.facebook}
-                    target='_blank'
-                  >
-                    <i className='fab fa-facebook fa-2x' />
-                  </a>
-                )}
+            {/* location */}
+            {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
+            <p>
+              {isEmpty(profile.website) ? null : (
+                <a
+                  className='text-white p-2'
+                  href={profile.website}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <ImLocation style={{ fontSize: "1.40rem" }} />
+                </a>
+              )}
+              {/* location */}
 
-                {isEmpty(profile.social && profile.social.linkedin) ? null : (
-                  <a
-                    className='text-white p-2'
-                    href={profile.social.linkedin}
-                    target='_blank'
-                  >
-                    <i className='fab fa-linkedin fa-2x' />
-                  </a>
-                )}
+              {/* twitter */}
+              {isEmpty(profile.social && profile.social.twitter) ? null : (
+                <a
+                  className='text-white p-2'
+                  href={profile.social.twitter}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <IoLogoTwitter style={{ fontSize: "1.40rem" }} />
+                </a>
+              )}
+              {/* twitter */}
 
-                {isEmpty(profile.social && profile.social.youtube) ? null : (
-                  <a
-                    className='text-white p-2'
-                    href={profile.social.youtube}
-                    target='_blank'
-                  >
-                    <i className='fab fa-youtube fa-2x' />
-                  </a>
-                )}
+              {/* facebook */}
+              {isEmpty(profile.social && profile.social.facebook) ? null : (
+                <a
+                  className='text-white p-2'
+                  href={profile.social.facebook}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <SiFacebook style={{ fontSize: "1.40rem" }} />
+                </a>
+              )}
+              {/* facebook */}
 
-                {isEmpty(profile.social && profile.social.instagram) ? null : (
-                  <a
-                    className='text-white p-2'
-                    href={profile.social.instagram}
-                    target='_blank'
-                  >
-                    <i className='fab fa-instagram fa-2x' />
-                  </a>
-                )}
-              </p>
-            </div>
+              {/* linkedin */}
+              {isEmpty(profile.social && profile.social.linkedin) ? null : (
+                <a
+                  className='text-white p-2'
+                  href={profile.social.linkedin}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <ImLinkedin style={{ fontSize: "1.40rem" }} />
+                </a>
+              )}
+              {/* linkedin */}
+
+              {/* youtube */}
+              {isEmpty(profile.social && profile.social.youtube) ? null : (
+                <a
+                  className='text-white p-2'
+                  href={profile.social.youtube}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <IoLogoYoutube style={{ fontSize: "1.40rem" }} />
+                </a>
+              )}
+              {/* youtube */}
+
+              {/* instagram */}
+              {isEmpty(profile.social && profile.social.instagram) ? null : (
+                <a
+                  className='text-white p-2'
+                  href={profile.social.instagram}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <ImInstagram style={{ fontSize: "1.40rem" }} />
+                </a>
+              )}
+              {/* instagram */}
+            </p>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ProfileHeader;

@@ -1,8 +1,9 @@
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
 import jwt_decode from "jwt-decode"; // to decode the token
 import setAuthToken from "../../utils/setAuthToken"; // set token to Authorisation header
 import authReducer from "./authReducer";
 import authContext from "./authContext";
+// import profileContext from "../Profile/profileContext";
 import { GET_ERRORS, SET_CURRENT_USER } from "../types";
 import axios from "axios";
 
@@ -13,6 +14,8 @@ const AuthState = (props) => {
     isLoggedIn: false,
     user: {},
   };
+  // init profile context
+  // const profileCtx = useContext(profileContext);
 
   // dispatch to reducer using the useReducer hook
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -94,6 +97,7 @@ const AuthState = (props) => {
         //  // redirect to login page
         dispatch(onLogoutHandler());
         // clear current profile
+        // dispatch(profileCtx.clearCurrentProfile());
       }
     }
   };

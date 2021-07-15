@@ -1,3 +1,5 @@
+// types.js: contains string variables which are called to change the state in the reducer
+
 // auth
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
@@ -13,10 +15,9 @@ export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
 export const GET_PROFILES = "GET_PROFILES";
 
 // github
-export const SEARCH_USERS = "SEARCH_USERS";
-export const GET_USER = "GET_USER";
-export const CLEAR_USERS = "CLEAR_USERS";
 export const GET_REPOS = "GET_REPOS";
+export const SET_LOADING = "SET_LOADING";
+export const GET_USER = "GET_USER";
 
 // post
 export const POST_LOADING = "POST_LOADING";

@@ -18,9 +18,9 @@ import NotFound from "./components/not-found/NotFound";
 
 const App = () => {
   // get state & functions from context
-  const ctx = useContext(authContext);
+  const authCtx = useContext(authContext);
   // destructure from auth context
-  const { checkTokenExpired } = ctx;
+  const { checkTokenExpired } = authCtx;
 
   useEffect(() => {
     const jwt_token = localStorage.getItem("jwtToken");
@@ -83,7 +83,7 @@ const App = () => {
         </Switch>
         {/* AddEducation; Switch allows redirection when logged out */}
         {/* Not found component */}
-        {/* <Route component={NotFound} /> */}
+        <Route component={NotFound} />
         {/* Not found component */}
       </main>
 
