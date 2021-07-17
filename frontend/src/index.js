@@ -8,6 +8,7 @@ import * as theme from "./components/Theme/theme";
 import AuthState from "./components/context/Auth/AuthState";
 import ProfileState from "./components/context/Profile/ProfileState";
 import GithubState from "./components/context/github/GithubState";
+import PostState from "./components/context/post/PostState";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.render(
       <AuthState>
         <ProfileState>
           <GithubState>
-            <App />
+            <PostState>
+              <App />
+            </PostState>
           </GithubState>
         </ProfileState>
       </AuthState>
