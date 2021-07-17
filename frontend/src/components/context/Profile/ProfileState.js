@@ -10,6 +10,9 @@ import {
   CLEAR_CURRENT_PROFILE,
 } from "../types";
 
+// clear profile data
+export const clearCurrentProfile = () => ({ type: CLEAR_CURRENT_PROFILE });
+
 const ProfileState = (props) => {
   // init profile initial states
   const initialState = {
@@ -41,6 +44,19 @@ const ProfileState = (props) => {
 
     try {
       const res = await axios.get(`/api/profile/handle/${handle}`);
+
+      dispatch({ type: GET_PROFILE, payload: res.data });
+    } catch (error) {
+      dispatch({ type: GET_PROFILE, payload: null });
+    }
+  };
+
+  // Get profile by handle
+  const getProfileByUserID = async (user_id) => {
+    dispatch(setProfileLoading());
+
+    try {
+      const res = await axios.get(`/api/profile/user/${user_id}`);
 
       dispatch({ type: GET_PROFILE, payload: res.data });
     } catch (error) {
@@ -81,9 +97,6 @@ const ProfileState = (props) => {
 
   // set profile loading
   const setProfileLoading = () => ({ type: PROFILE_LOADING });
-
-  // clear profile data
-  const clearCurrentProfile = () => ({ type: CLEAR_CURRENT_PROFILE });
 
   // delete account and profile
   const deleteProfileAccount = async () => {
@@ -198,6 +211,7 @@ const ProfileState = (props) => {
         getCurrentProfile,
         getProfiles,
         getProfileByHandle,
+        getProfileByUserID,
         createProfile,
         setProfileLoading,
         clearCurrentProfile,
