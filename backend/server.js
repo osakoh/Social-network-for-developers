@@ -46,15 +46,15 @@ app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 
 // serve static assests
-if (process.env.NODE_ENV === "production") {
-  // set static folder
-  app.use(express.static("./frontend/build"));
+// if (process.env.NODE_ENV === "production") {
+//   // set static folder
+//   app.use(express.static("./frontend/build"));
 
-  // get whatever isn't an api route
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-  });
-}
+//   // get whatever isn't an api route
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+//   });
+// }
 
 const port = process.env.PORT || 5000;
 
