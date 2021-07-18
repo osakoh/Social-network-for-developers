@@ -13,7 +13,7 @@ const TextArea = ({
 }) => (
   <div className='form-group mb-3'>
     <textarea
-      className={classnames("form-control form-control", {
+      className={classnames("form-control", {
         "is-invalid": error,
         "is-valid": !error && isPressed,
       })}

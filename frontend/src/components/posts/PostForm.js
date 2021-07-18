@@ -17,10 +17,12 @@ const PostForm = () => {
 
   // to update the error state
   useEffect(() => {
-    setState({ ...state, errors: errors });
+    if (state.errors.text !== errors.text) {
+      setState({ ...state, errors: errors });
+    }
 
     // eslint-disable-next-line
-  }, [errors.text, state.errors.text]);
+  }, [errors, state.errors.text]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -61,7 +63,7 @@ const PostForm = () => {
                 name='text'
                 value={state.text}
                 onChange={onChangeHandler}
-                error={errors.text}
+                error={state.errors.text}
                 isPressed={state.pressed}
               />
             </div>

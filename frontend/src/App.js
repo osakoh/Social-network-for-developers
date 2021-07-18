@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer";
@@ -13,25 +13,43 @@ import CreateProfile from "./components/create-profile/CreateProfile";
 import AddExperience from "./components/add-credentials/AddExperience";
 import AddEducation from "./components/add-credentials/AddEducation";
 import Profile from "./components/dashboard/profile/Profile";
+import ProfileID from "./components/dashboard/profile/ProfileID";
 import Profiles from "./components/dashboard/profiles/Profiles";
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 import NotFound from "./components/not-found/NotFound";
-import Page404 from "./components/not-found/Page404";
+// import isEmpty from "./components/validation/isEmpty";
+// import Page404 from "./components/not-found/Page404";
 
 const App = () => {
   // get state & functions from context
   const authCtx = useContext(authContext);
   // destructure from auth context
-  const { checkTokenExpired } = authCtx;
+  const { checkTokenExpired, isLoggedIn } = authCtx;
+  // init state
+  const [state, setState] = useState(false);
 
+  // set state
   useEffect(() => {
-    const jwt_token = localStorage.getItem("jwtToken");
-
-    if (jwt_token) {
-      checkTokenExpired();
+    if (localStorage.jwtToken) {
+      setState((prevState) => !prevState);
+    } else {
+      // redirect to login page
+      // window.location.href = "/login";
     }
-    // setCurrentUser isn't added as a dependency to avoid an un-ending loop
+
     // eslint-disable-next-line
   }, []);
+
+  // setToken(true);
+  useEffect(() => {
+    // check if token is expired
+    checkTokenExpired();
+
+    // eslint-disable-next-line
+  }, [state, isLoggedIn]);
+
+  // console.log("From APP, state", state);
 
   //  className='container' style={{ marginBottom: "10vh", padding: "5px" }}
   return (
@@ -46,10 +64,25 @@ const App = () => {
           <Route exact path='/register' component={Register} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/profiles' component={Profiles} />
+
+          {/* 'handle' is passed as part of the url */}
           <Route exact path='/profile/:handle' component={Profile} />
+          <Route exact path='/profile/user/:user_id' component={ProfileID} />
+          {/* 'handle' is passed as part of the url */}
+
+          {/* Dashboard; Switch allows redirection when logged out */}
           <Switch>
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
           </Switch>
+          {/* Dashboard; Switch allows redirection when logged out */}
+
+          {/* Edit-Profile; Switch allows redirection when logged out */}
+          <Switch>
+            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+          </Switch>
+          {/* Edit-Profile; Switch allows redirection when logged out */}
+
+          {/* Create-Profile; Switch allows redirection when logged out */}
           <Switch>
             <PrivateRoute
               exact
@@ -57,9 +90,8 @@ const App = () => {
               component={CreateProfile}
             />
           </Switch>
-          <Switch>
-            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-          </Switch>
+          {/* Create-Profile; Switch allows redirection when logged out */}
+          {/* AddExperience; Switch allows redirection when logged out */}
           <Switch>
             <PrivateRoute
               exact
@@ -67,6 +99,8 @@ const App = () => {
               component={AddExperience}
             />
           </Switch>
+          {/* AddExperience; Switch allows redirection when logged out */}
+          {/* AddEducation; Switch allows redirection when logged out */}
           <Switch>
             <PrivateRoute
               exact
@@ -74,19 +108,20 @@ const App = () => {
               component={AddEducation}
             />
           </Switch>
-          {/* <Switch>
+          {/* AddEducation; Switch allows redirection when logged out */}
+
+          <Switch>
             <PrivateRoute exact path='/feed' component={Posts} />
           </Switch>
           <Switch>
             <PrivateRoute exact path='/post/:id' component={Post} />
-          </Switch> */}
+          </Switch>
+
+          {/* Not found component */}
           <Switch>
             <Route exact path='/not-found' component={NotFound} />
           </Switch>
-
-          <Switch>
-            <Route path='*' component={Page404} />
-          </Switch>
+          {/* Not found component */}
         </div>
       </main>
 
@@ -96,56 +131,6 @@ const App = () => {
 };
 
 export default App;
-
-// {/* <Route exact path='/register' component={Register} />
-//           <Route exact path='/login' component={Login} />
-//           <Route exact path='/profiles' component={Profiles} />
-//           {/* 'handle' is passed as part of the url */}
-//           <Route exact path='/profile/:handle' component={Profile} />
-//           {/* 'handle' is passed as part of the url */}
-
-//           {/* Dashboard; Switch allows redirection when logged out */}
-//           <Switch>
-//             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-//           </Switch>
-//           {/* Dashboard; Switch allows redirection when logged out
-//           {/* Edit-Profile; Switch allows redirection when logged out */}
-//           <Switch>
-//             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-//           </Switch>
-//           {/* Edit-Profile; Switch allows redirection when logged out */}
-//           {/* Create-Profile; Switch allows redirection when logged out */}
-//           <Switch>
-//             <PrivateRoute
-//               exact
-//               path='/create-profile'
-//               component={CreateProfile}
-//             />
-//           </Switch>
-//           {/* Create-Profile; Switch allows redirection when logged out */}
-//           {/* AddExperience; Switch allows redirection when logged out */}
-//           <Switch>
-//             <PrivateRoute
-//               exact
-//               path='/add-experience'
-//               component={AddExperience}
-//             />
-//           </Switch>
-//           {/* AddExperience; Switch allows redirection when logged out */}
-//           {/* AddEducation; Switch allows redirection when logged out */}
-//           <Switch>
-//             <PrivateRoute
-//               exact
-//               path='/add-education'
-//               component={AddEducation}
-//             />
-//           </Switch>
-//           {/* AddEducation; Switch allows redirection when logged out */}
-//           {/* Not found component */}
-//           <Switch>
-//             <Route component={NotFound} />
-//           </Switch>
-//           Not found component */}
 
 /**
  * Min-Width

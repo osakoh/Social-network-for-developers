@@ -1,17 +1,15 @@
 import React, { useContext } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
-import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai";
+import { AiTwotoneLike, AiOutlineLike, AiTwotoneDislike } from "react-icons/ai";
 import { RiChatDeleteFill } from "react-icons/ri";
 import authContext from "../context/Auth/authContext";
 import postContext from "../context/post/postContext";
-import profileContext from "../context/Profile/profileContext";
 
 const PostItem = ({ showActions, post }) => {
   // init both context
   const auth = useContext(authContext);
   const postCtx = useContext(postContext);
-  const profileCtx = useContext(profileContext);
   // destructuring
   const { deletePost, addLike, removeLike } = postCtx;
 
@@ -36,10 +34,8 @@ const PostItem = ({ showActions, post }) => {
     }
   };
 
-  console.log("From PostItem: post", post.user);
-
   return (
-    <div className='card card-body mb-3'>
+    <div className='shadow bg-body rounded  card-body mb-3'>
       <div className='row'>
         <div className='col-md-2 col-sm-4'>
           {/* check here */}
@@ -58,7 +54,8 @@ const PostItem = ({ showActions, post }) => {
 
         <div className='col-md-8 col-sm-6'>
           <p className='lead'>{post.text}</p>
-
+        </div>
+        <div className='card-footer float-start bg-white'>
           {/* showActions props from post/Post.js  */}
           {showActions ? (
             <span>
@@ -68,18 +65,23 @@ const PostItem = ({ showActions, post }) => {
                 type='button'
                 className='btn btn-light btn-sm mb-2 me-1'
               >
-                {/* <i
-                  className={classnames("fas fa-thumbs-up", {
-                    "text-info": findUserLike(post.likes),
-                  })}
-                /> */}
-                <AiTwotoneLike
-                  className={classnames({
-                    "text-info": findUserLike(post.likes),
-                    "text-white": !findUserLike(post.likes),
-                  })}
-                  style={{ fontSize: "1.20rem" }}
-                />
+                {findUserLike(post.likes) ? (
+                  <AiTwotoneLike
+                    className={classnames({
+                      "text-info": findUserLike(post.likes),
+                      // "text-white": !findUserLike(post.likes),
+                    })}
+                    style={{ fontSize: "1.0rem" }}
+                  />
+                ) : (
+                  <AiOutlineLike
+                    className={classnames({
+                      "text-info": findUserLike(post.likes),
+                      // "text-white": !findUserLike(post.likes),
+                    })}
+                    style={{ fontSize: "1.0rem" }}
+                  />
+                )}
                 <span className='badge badge-light text-dark'>
                   {post.likes.length}
                 </span>
@@ -94,21 +96,10 @@ const PostItem = ({ showActions, post }) => {
               >
                 <AiTwotoneDislike
                   className='text-secondary'
-                  style={{ fontSize: "1.20rem" }}
+                  style={{ fontSize: "1.0rem" }}
                 />
               </button>
               {/* unlike post */}
-
-              {/* view comments for a single post */}
-              <Link
-                to={`/post/${post._id}`}
-                className='btn btn-sm mb-2 btn-info me-1'
-                style={{ textDecoration: "none" }}
-              >
-                {post.comments.length}
-                {post.comments.length > 0 ? " comments" : " comment"}
-              </Link>
-              {/* view comments for a single post */}
 
               {/* delete post if auth user own post */}
               {post.user === auth.user.id ? (
@@ -121,6 +112,19 @@ const PostItem = ({ showActions, post }) => {
                 </button>
               ) : null}
               {/* delete post if auth user own post */}
+
+              {/* view comments for a single post */}
+              <Link
+                to={`/post/${post._id}`}
+                className='mx-1'
+                style={{ textDecoration: "none" }}
+              >
+                <span className='text-dark commentLink'>
+                  {post.comments.length}
+                  {post.comments.length > 1 ? " comments" : " comment"}
+                </span>
+              </Link>
+              {/* view comments for a single post */}
             </span>
           ) : null}
           {/* showActions props from post/Post.js  */}

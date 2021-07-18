@@ -21,6 +21,7 @@ const postReducer = (state, action) => {
         ...state,
         posts: action.payload,
         loading: false,
+        errors: {},
       };
 
     case GET_POST:
@@ -28,12 +29,14 @@ const postReducer = (state, action) => {
         ...state,
         post: action.payload,
         loading: false,
+        errors: {},
       };
 
     case ADD_POST:
       return {
         ...state,
         posts: [action.payload, ...state.posts],
+        errors: {},
       };
 
     case DELETE_POST:

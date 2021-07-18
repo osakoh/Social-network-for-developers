@@ -15,10 +15,25 @@ const Navigation = () => {
   const authLinks = (
     <ul className='navbar-nav ms-auto'>
       <li className='nav-item'>
+        <Link className='nav-link' to='/feed'>
+          Post Feed
+        </Link>
+      </li>
+
+      <li className='nav-item'>
+        <Link className='nav-link' to='/dashboard'>
+          Dashboard
+        </Link>
+      </li>
+
+      <li className='nav-item'>
         <button
           type='button'
-          className='btn text-dark font-weight-bold border-2 btn-light'
-          onClick={onLogoutHandler}
+          className='btn btn-sm text-dark font-weight-bold border-2 btn-light'
+          onClick={(e) => {
+            e.preventDefault();
+            onLogoutHandler();
+          }}
         >
           <img
             className='rounded-circle'

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import profileContext from "../../context/Profile/profileContext";
 import { IoIosPeople } from "react-icons/io";
 import Spinner from "../../layout/Spinner";
@@ -7,15 +7,16 @@ import ProfileHeader from "../profile/ProfileHeader";
 import ProfileAbout from "../profile/ProfileAbout";
 import ProfileCreds from "../profile/ProfileCreds";
 import ProfileGithub from "./ProfileGithub";
-import githubContext from "../../context/github/githubContext";
+import authContext from "../../context/Auth/authContext";
+import { MdDashboard } from "react-icons/md";
 
 const Profile = (props) => {
   // init history
-  const history = useHistory();
+  // const history = useHistory();
   // get state & functions from profile context
   const profileCtx = useContext(profileContext);
-  // initialise GithubContext
-  const githubCtx = useContext(githubContext);
+  // initialise authContext
+  const authCtx = useContext(authContext);
 
   // destructure from profile ctx
   const { profile, loading, getProfileByHandle } = profileCtx;
@@ -71,8 +72,24 @@ const Profile = (props) => {
       <div className='container'>
         <div className='row'>
           <div className='col-md-12'>
+            {/* back to my dashboard button */}
+
+            {authCtx.isLoggedIn && (
+              <Link
+                to='/dashboard'
+                className='btn btn-sm mx-2 btn-primary mt-3 mb-2'
+              >
+                My Dashboard <MdDashboard style={{ fontSize: "1.40rem" }} />
+              </Link>
+            )}
+
+            {/* back to my dashboard button */}
+
             {/* back to profiles button */}
-            <Link to='/profiles' className='btn btn-sm btn-primary mt-3 mb-3'>
+            <Link
+              to='/profiles'
+              className='btn btn-sm mx-2 btn-primary  mt-3 mb-2'
+            >
               Back to Profiles <IoIosPeople style={{ fontSize: "1.40rem" }} />
             </Link>
             {/* back to profiles button */}

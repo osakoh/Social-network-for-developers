@@ -5,6 +5,7 @@ import authReducer from "./authReducer";
 import authContext from "./authContext";
 import { GET_ERRORS, SET_CURRENT_USER } from "../types";
 import axios from "axios";
+import { clearCurrentProfile } from "../Profile/ProfileState";
 
 const AuthState = (props) => {
   // declare initial states for the registration form
@@ -73,6 +74,7 @@ const AuthState = (props) => {
     setAuthToken(false); // this deletes the auth header. check setAuthToken script for details
     // set current user to an empty object, thereby setting isAuthenticated to false because actions.payload is empty
     dispatch(setCurrentUser({}));
+    // dispatch(clearCurrentProfile());
     // redirect to login page
     // window.location.href = "/login";
   };
@@ -91,10 +93,13 @@ const AuthState = (props) => {
       const currentTime = Date.now() / 1000;
       // check if user's token is expired
       if (decodedToken.exp < currentTime) {
+        // redirect to login page
+        window.location.href = "/login";
+        dispatch(setCurrentUser({}));
         //  // redirect to login page
         dispatch(onLogoutHandler());
         // clear current profile
-        // dispatch(profileCtx.clearCurrentProfile());
+        dispatch(clearCurrentProfile());
       }
     }
   };

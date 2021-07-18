@@ -17,11 +17,12 @@ const CommentForm = ({ postId }) => {
 
   // to update the error state
   useEffect(() => {
-    setState({ ...state, errors: errors });
-    console.log("CommentForm", state.errors.text, errors.text);
+    if (state.errors.text !== errors.text) {
+      setState({ ...state, errors: errors });
+    }
 
     // eslint-disable-next-line
-  }, [errors.text, state.errors.text]);
+  }, [errors, state.errors.text]);
 
   // checks if the submit button has been pressed and sets the state of pressed to true
   const onPressedHandler = () => {
@@ -47,7 +48,7 @@ const CommentForm = ({ postId }) => {
 
     addComment(postId, newComment);
     // reset form
-    setState({ ...state, text: "" });
+    setState({ ...state, text: "", pressed: false });
   };
 
   return (
@@ -62,7 +63,7 @@ const CommentForm = ({ postId }) => {
                 name='text'
                 value={state.text}
                 onChange={onChangeHandler}
-                error={errors.text}
+                error={state.errors.text}
                 isPressed={state.pressed}
               />
             </div>
