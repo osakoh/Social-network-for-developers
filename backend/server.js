@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport"); // main authentication module
+const path = require("path");
 
 // users
 const users = require("./routes/api/usersAuth");
@@ -43,6 +44,17 @@ app.use("/api/users", users);
 app.use("/api/profile", profile);
 // posts routes
 app.use("/api/posts", posts);
+
+// serve static assests
+if (process.env.NODE_ENV === "production") {
+  // set static folder
+  app.use(express.static("./frontend/build"));
+
+  // get whatever isn't an api route
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+}
 
 const port = process.env.PORT || 5000;
 
