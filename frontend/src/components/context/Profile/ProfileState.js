@@ -1,7 +1,8 @@
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
 import axios from "axios";
 import profileReducer from "./profileReducer";
 import profileContext from "./profileContext";
+import authContext from "../Auth/authContext";
 import {
   GET_PROFILE,
   GET_PROFILES,
@@ -21,6 +22,9 @@ const ProfileState = (props) => {
     loading: false,
     errors: {},
   };
+
+  // init context
+  const ctx = useContext(authContext);
 
   // dispatch to reducer using the useReducer hook
   const [state, dispatch] = useReducer(profileReducer, initialState);
@@ -103,11 +107,13 @@ const ProfileState = (props) => {
     // this throws an uncaught promise error in the console
     if (window.confirm("Are you sure? This is permanent!")) {
       try {
-        console.log("button clicked");
-        // const res = await axios.delete("/api/profile");
-        // if (res.status === 200) {
-        //   dispatch(ctx.onLogoutHandler());
-        // }
+        // console.log("button clicked");
+        const res = await axios.delete("/api/profile");
+        if (res.status === 200) {
+          // onLogoutHandler: removes token from local storage
+          // onLogoutHandler: removes token from Authorization header
+          ctx.onLogoutHandler();
+        }
       } catch (error) {
         dispatch({ type: GET_ERRORS, payload: error.response.data });
       }
