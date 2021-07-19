@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import authContext from "../context/Auth/authContext";
 import showcase from "../img/showcase.jpg";
@@ -61,12 +61,13 @@ const Landing = () => {
                 from other developers
               </p>
               <hr />
-              <a href='/register' className='btn btn-lg btn-info mx-2 mb-3'>
-                Sign Up
-              </a>
-              <a href='/login' className='btn btn-lg btn-light mx-2 mb-3'>
+              <Link to='/register' className='btn btn-primary mx-2 mb-3'>
+                Register
+              </Link>
+
+              <Link to='/login' className='btn btn-light mx-2 mb-3'>
                 Login
-              </a>
+              </Link>
             </div>
           </div>
         </div>

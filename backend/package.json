@@ -2,14 +2,19 @@
   "name": "code-network",
   "version": "1.0.0",
   "description": "Social network for coders",
+  "engines": {
+    "node": "14.17.3",
+    "npm": "6.14.13"
+  },
   "main": "server.js",
   "scripts": {
-    "client-install": "cd .. && npm  install --prefix frontend",
+    "client-install": "cd .. && npm install --prefix frontend",
+    "client-build": "cd .. && npm run build --prefix frontend",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "cd .. && npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd .. && npm install --prefix frontend && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install"
   },
   "author": "Michael Osakoh",
   "license": "MIT",
